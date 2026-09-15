@@ -4,3 +4,5 @@ html,body{min-height:100%}body{margin:0;background:#050505;color:#d5d5d5;font:14
 .term-list{border-left:1px solid #2f2f2f;margin:22px 0;padding:8px 0 8px 18px}.term-list div{padding:2px 0;color:#8f8f8f}.term-list .orphan{color:#e4e4e4;margin-top:10px}
 .term-note{margin:24px 0;color:#777;max-width:650px}.term-exit{margin-top:36px;padding-top:18px;border-top:1px solid #262626}.term-exit a{color:#fff;text-decoration:none;border-bottom:1px solid #777;padding-bottom:2px}.term-exit a:hover{border-color:#fff}.term-back{display:inline-block;margin-top:35px;color:#666}.term-back:hover{color:#aaa}
 @media(max-width:600px){.terminal{padding-top:28px}.term-line,.term-list{font-size:12px}}
+
+.term-line.ghost{margin-top:19px;color:#555}.term-line.ghost::selection{background:#333;color:#ddd}
