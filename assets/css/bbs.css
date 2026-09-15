@@ -20,3 +20,16 @@ body.site-bbs{padding-top:7px;background:
 .bbs-thread-radio2016 .post:first-child .signature{color:#7a5151;border:1px dotted #a49a9a;background:#ece9e4;padding:5px}.bbs-thread-hanger2016 .editstamp{color:#8f3d3d!important;text-decoration:underline dotted}
 .site-bbs .archive-tools{box-shadow:inset 0 0 0 2px #edf1f4}.site-bbs .archive-search input:focus{outline:1px dotted #762f41;background:#fffbe6}
 @media(max-width:680px){.site-bbs .bbs{margin:0;width:100%;box-shadow:none}}
+
+/* V10 — corrected masthead geometry and a viewport-filling archive shell. */
+.site-bbs .bbs{min-height:calc(100vh - 28px);display:flex;flex-direction:column}
+.site-bbs .bbs-main{flex:1}
+.site-bbs .bbs-head{height:86px;align-items:center}
+.site-bbs .bbs-head:after{height:100%;opacity:.42}
+.site-bbs .bbs-head h1{line-height:1.05;z-index:2}
+.site-bbs .bbs-head h1:after{content:"自由 · 真实 · 互助";display:block;white-space:normal;font:10px/1.2 SimSun,serif;letter-spacing:2px;margin-top:6px}
+.site-bbs .bbs-head>span{align-self:center;z-index:2}
+.site-bbs .legacy-slides{width:39%;opacity:.55}
+.site-bbs .ambient-post .post-user{background:#d8e0e5}
+.site-bbs .ambient-post .post-meta{color:#88735f}
+@media(max-width:680px){.site-bbs .bbs{min-height:100vh}.site-bbs .bbs-head{height:76px}.site-bbs .legacy-slides{width:56%}}

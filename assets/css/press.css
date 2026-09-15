@@ -15,3 +15,8 @@ body.site-press{background:
 .press-corrections .press-index td:nth-child(1){font-family:Consolas,monospace}.press-corrections .press-index tr:nth-child(3) td:first-child{text-decoration:underline wavy rgba(128,47,41,.65)}
 .site-press .press-photo{box-shadow:2px 3px 0 rgba(63,48,31,.18);transform:rotate(.15deg)}
 @media(max-width:680px){.site-press .press{transform:none;box-shadow:none}.site-press .press:before,.press-scribble{display:none}}
+
+/* V10 — short clippings now retain a full newspaper sheet instead of exposing a black void. */
+.site-press .press{min-height:calc(100vh - 32px);display:flex;flex-direction:column}
+.site-press .press-body{flex:1}
+@media(max-width:680px){.site-press .press{min-height:100vh}}

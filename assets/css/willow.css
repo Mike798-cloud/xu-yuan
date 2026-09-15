@@ -7,3 +7,12 @@ body.site-willow{position:relative;background:#000;overflow-x:hidden}.willow-wra
 .willow-scratch{position:absolute;z-index:2;right:8vw;top:31vh;color:#3a3430;font:20px/1.8 STKaiti,KaiTi,serif;letter-spacing:8px;transform:rotate(-12deg);opacity:.54;user-select:none}
 .willow-meta{width:420px;max-width:80vw;border-right:1px solid #151a18;color:#69716d}.static-noise{letter-spacing:2px;color:#323a36}.willow-title{font-family:STKaiti,KaiTi,Consolas,serif;font-size:21px;letter-spacing:3px;color:#d2d3cf;text-shadow:1px 0 #4a2222,-1px 0 #173033}.counter{font-size:9px;letter-spacing:2px}.tree-frame{margin-left:-15vw;width:78vw;max-width:1120px;height:64vh;min-height:430px;transform:rotate(-.3deg)}.tree-frame img{filter:grayscale(.82) saturate(.06) contrast(1.52) brightness(.34)}.tree-frame:before{content:"";position:absolute;z-index:2;left:9%;top:0;bottom:0;width:1px;background:#111712;box-shadow:93px 0 #0c100d,211px 0 #16110e;opacity:.7}.wishbox{position:relative;margin-top:22px;margin-left:49vw;width:520px}.wishbox:before{content:"\201C";position:absolute;left:-82px;top:-42px;color:#242925;font:96px Georgia,serif;opacity:.6}.wishbox textarea{font:16px/1.8 STKaiti,KaiTi,serif;border-bottom-color:#4a514d}.wishbtn{font:10px Consolas,monospace;letter-spacing:2px;color:#a0a8a3}.privacy{color:#2a302d}.residue{color:#37403b}.ending{max-width:620px}.ending p{letter-spacing:1px}
 @media(max-width:650px){.willow-glyph{font-size:80vw;right:-16vw;top:15vh}.willow-scratch{display:none}.willow-meta{width:auto}.tree-frame{width:125vw;margin-left:-42vw;height:54vh;min-height:360px}.wishbox{margin-left:10vw;width:auto}}
+
+/* V10 — a persistent evidence reel makes the final address feel alive before submission. */
+.tree-frame .tree-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 43%;opacity:0;transform:scale(1.035);transition:opacity 1.35s ease,transform 6.2s linear;filter:grayscale(.82) saturate(.06) contrast(1.52) brightness(.34)}
+.tree-frame .tree-slide.active{opacity:1;transform:scale(1)}
+.tree-frame .tree-slide-close{object-position:62% 38%;transform:scale(1.16)}
+.tree-frame .tree-slide-close.active{transform:scale(1.1)}
+.tree-carousel-label{position:absolute;left:12%;bottom:9%;z-index:3;padding:3px 7px;border-left:1px solid #55473d;background:rgba(0,0,0,.66);color:#8c8177;font:9px/1.5 Consolas,monospace;letter-spacing:2px}
+.wishbtn:disabled{opacity:.45;cursor:default}
+@media(prefers-reduced-motion:reduce){.tree-frame .tree-slide{transition:none}.blackout.show,.ending p{animation:none;opacity:1}}

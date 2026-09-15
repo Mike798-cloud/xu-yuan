@@ -36,3 +36,11 @@ body.site-minglan:after{content:"柳";position:fixed;right:1vw;top:9vh;color:#18
 /* Lists/notices: old announcement bulletin */
 .minglan-notices .ml-body{background:#e4d9c3}.minglan-notices .ml-article h2{background:#6c1e1a!important;color:#fff4dc!important}.minglan-notices .ml-list{border:2px ridge #f8edda;background:#f6efdf}
 @media(max-width:720px){body.site-minglan:before,body.site-minglan:after{display:none}.ml-marquee{max-width:100%;width:100%;border-left:0;border-right:0}.minglan-notice-east .ml-article{padding:24px 16px}.ml-relic{display:block}.ml-relic span,.ml-relic em{display:block;margin-top:3px;border-left:0;padding-left:0}}
+
+/* V10 — keep the official-site canvas present across short archive pages. */
+.site-minglan .ml-body{min-height:calc(100vh - 232px)}
+.site-minglan .legacy-ticker{width:1000px;max-width:calc(100% - 28px);margin:0 auto;border-left:1px solid #806f55;border-right:1px solid #806f55}
+.site-minglan .ml-head .inner>.legacy-slides{z-index:0;width:46%}
+.site-minglan .ml-head .inner:before,.site-minglan .ml-head .inner:after{z-index:1}
+.site-minglan .ml-brand,.site-minglan .ml-head .small{z-index:2}
+@media(max-width:720px){.site-minglan .ml-body{min-height:calc(100vh - 196px)}.site-minglan .legacy-ticker{max-width:100%;width:100%;border-left:0;border-right:0}}

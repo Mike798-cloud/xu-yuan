@@ -8,3 +8,10 @@ body.site-oa:before{content:"ARCHIVE\A2012—2016\AREAD ONLY";white-space:pre;po
 .site-oa .oa{position:relative;margin-left:max(20px,calc((100vw - 1160px)/2));margin-right:0;border-color:#342e28;box-shadow:5px 7px 0 #090705}.site-oa .oa-top{color:#95897a;border-bottom-color:#3a332c}.site-oa .oa-head h1{color:#ddd3c4}.site-oa .oa-head h1:before{color:#806f5c}.site-oa .oa-nav a{color:#948b7f}.site-oa .oa-table,.site-oa .oa-search{font-variant-numeric:tabular-nums}.site-oa .oa-search{border-color:#4a4035}.site-oa input,.site-oa select,.site-oa button{border-color:#594c3f;color:#d3c8b9}.site-oa .important-time{color:#d1b59a;text-shadow:1px 0 rgba(143,49,42,.35)}
 .record-glyph{margin:0 0 16px;color:#594b3f;font:11px/1.5 Consolas,monospace;letter-spacing:3px;white-space:nowrap;overflow:hidden;position:relative}.record-glyph:after{content:"╲╱╲╱";margin-left:18px;color:#3d2925;text-shadow:1px 0 #18302d,-1px 0 #5b2422}.oa-eastfield-2016 .oa-tabs button.active{color:#eadbc9;border-bottom:1px solid #795047}.oa-eastfield-2016 .scan{box-shadow:5px 7px 0 rgba(86,56,35,.08);background:#cbc4b3}.oa-eastfield-2016 .cache-fragment{color:#b89073;text-shadow:1px 0 rgba(119,37,33,.3)}
 @media(max-width:680px){body.site-oa:before{display:none}.site-oa .oa{margin:0;width:100%;box-shadow:none}}
+
+/* V10 — preserve the archive terminal as a full-height workspace. */
+.site-oa .oa{min-height:calc(100vh - 30px);display:flex;flex-direction:column}
+.site-oa .oa-body{flex:1}
+.oa-eastfield-2016 .oa-tabs{position:relative}
+.oa-eastfield-2016 .oa-tabs:after{content:"";position:absolute;left:0;bottom:-1px;width:33.333%;height:1px;background:#ae765f;transform:translateX(calc(var(--oa-slide,0) * 100%));transition:transform .55s ease}
+@media(max-width:680px){.site-oa .oa{min-height:100vh}.oa-eastfield-2016 .oa-tabs:after{display:none}}

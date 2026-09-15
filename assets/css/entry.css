@@ -25,3 +25,8 @@ body.entry-cache:before{content:"FORWARD_CACHE // 2017 // READ ONLY";position:fi
 .entry-cache .cache-ghost{position:relative}
 .entry-cache .cache-ghost:after{content:"×";position:absolute;right:10px;top:-18px;color:#7d2e27;font:26px Georgia,serif;transform:rotate(8deg)}
 @media(max-width:760px){.entry-mark,.entry-branch{display:none}.entry-cache .capture{margin:0;max-width:100%;width:100%;transform:none;box-shadow:none}.cache-scratch{display:none}}
+
+/* V10 — fill the first stage with the cache viewer, not unused black backdrop. */
+.entry-cache .capture{min-height:calc(100vh - 24px);display:flex;flex-direction:column}
+.entry-cache .share{flex:1;display:flex;align-items:flex-start}
+@media(max-width:760px){.entry-cache .capture{min-height:100vh}}
