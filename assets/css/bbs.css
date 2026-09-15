@@ -33,3 +33,15 @@ body.site-bbs{padding-top:7px;background:
 .site-bbs .ambient-post .post-user{background:#d8e0e5}
 .site-bbs .ambient-post .post-meta{color:#88735f}
 @media(max-width:680px){.site-bbs .bbs{min-height:100vh}.site-bbs .bbs-head{height:76px}.site-bbs .legacy-slides{width:56%}}
+
+/* V11 — complete thread pages and photographic early-web avatars. */
+.site-bbs .avatar{background-image:url('../img/forum-avatars-v2.jpg');background-size:800% 400%;background-position:var(--avatar-x,0) var(--avatar-y,0);background-repeat:no-repeat;filter:saturate(.72) contrast(.96);box-shadow:inset 0 0 0 1px rgba(255,255,255,.55),1px 1px 0 #7c8b95}
+.site-bbs .avatar:after{display:none}
+.site-bbs .avatar.avatar-missing{background-image:repeating-linear-gradient(135deg,#c7cdd0 0 5px,#dce1e4 5px 10px);filter:none;opacity:.45}
+.site-bbs .post[hidden]{display:none!important}
+.site-bbs .post:not([hidden]){animation:forum-post-in .38s ease-out both;animation-delay:var(--post-delay,0ms)}
+.site-bbs .pagination{display:flex;align-items:center;gap:2px;padding:8px 0 3px}
+.site-bbs .pagination .page-label{margin-right:5px;background:#d4dce1;color:#596772;border-style:dotted}
+.site-bbs .pagination a.active{background:#285777;color:#fff;border-color:#183e59;text-decoration:none}
+@keyframes forum-post-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.site-bbs .post:not([hidden]){animation:none}}
