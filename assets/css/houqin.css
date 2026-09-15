@@ -3,3 +3,17 @@ html{background:#030605}body{min-height:100vh;background:
 .campus-plan{display:block;width:100%;height:100%}.map-caption{display:flex;justify-content:space-between;gap:12px;color:#5a675f;font:9px Consolas,monospace;padding:3px 1px 0}.map-filter select{border:1px solid #6e7e74;background:#eef1ef;color:#283a30;padding:3px 6px;border-radius:0}.map-caption span:last-child{margin-left:auto}
 .hq-map{height:auto;aspect-ratio:5/2}
 @media(max-width:680px){.hq-map{height:auto;aspect-ratio:5/2;min-height:210px}}
+
+/* V9 — municipal/ASP workstation visual language, intentionally cramped and ugly. */
+body.site-houqin{background:
+ linear-gradient(rgba(34,49,40,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(34,49,40,.12) 1px,transparent 1px),#020403;background-size:20px 20px;padding-top:7px}
+.site-houqin .hq{position:relative;margin-left:max(16px,calc((100vw - 1190px)/2));margin-right:0;box-shadow:6px 8px 0 #0b0f0c,14px 18px 38px rgba(0,0,0,.72)}
+.site-houqin .hq:before{content:"MINGLAN UNIVERSITY / HQDATA_02 / IE ONLY";display:block;height:18px;padding:2px 6px;background:linear-gradient(90deg,#1d3d30,#51705f);color:#e9efe9;border-bottom:1px solid #101c16;font:10px/14px Tahoma,Arial,sans-serif}
+.site-houqin .hq:after{font-family:Tahoma,Arial,SimSun,sans-serif}
+.site-houqin .hq-head{background:#29493a}.site-houqin .hq-nav{background:#aeb7b0}.site-houqin .hq-body{background:#aeb7b1}.site-houqin .hq-box{box-shadow:inset 1px 1px #f1f3f1,1px 1px #7b8980}
+.site-houqin .hq-table th{background:#aab5ad}.site-houqin .hq-table td{font-family:Tahoma,Arial,SimSun,sans-serif}
+.hand-count{float:right;margin:-3px 8px 7px 14px;color:#70473c;font:30px/1 STKaiti,KaiTi,serif;letter-spacing:-7px;transform:rotate(5deg);opacity:.68}.hand-count span:nth-child(2){transform:translateY(3px);display:inline-block}.hand-count span:nth-child(4){color:#8f342a;text-decoration:underline}
+.hq-workorder-2014-0524 .hq-box{position:relative}.hq-workorder-2014-0524 .hq-box:after{content:"3 ?";position:absolute;right:18px;bottom:45px;color:rgba(109,55,44,.38);font:18px STKaiti,KaiTi,serif;transform:rotate(-9deg)}
+.hq-workorder-2014-0524 .stamp{transform:rotate(-9deg);opacity:.72}
+.hq-map .campus-plan{filter:saturate(.55) sepia(.12) contrast(.96)}
+@media(max-width:680px){.site-houqin .hq{margin:0;width:100%;box-shadow:none}.hand-count{float:none;text-align:right}}
