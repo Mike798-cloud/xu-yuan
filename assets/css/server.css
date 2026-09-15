@@ -6,3 +6,4 @@ html,body{min-height:100%}body{margin:0;background:#050505;color:#d5d5d5;font:14
 @media(max-width:600px){.terminal{padding-top:28px}.term-line,.term-list{font-size:12px}}
 
 .term-line.ghost{margin-top:19px;color:#555}.term-line.ghost::selection{background:#333;color:#ddd}
+.term-top:before{content:"MINGLAN LEGACY STORAGE NODE / build 2004.11\A";white-space:pre;color:#4d4d4d}.terminal{padding-top:34px}.term-title:before{content:"C:\\ARCHIVE\\PUBLIC> ";color:#777}.term-exit a:before{content:"OPEN ";color:#777}
