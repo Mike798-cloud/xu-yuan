@@ -1,136 +1,123 @@
 (function(){
+  'use strict';
   document.documentElement.classList.add('js');
 
-  const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const body=document.body;
-  const siteConfig=body.classList.contains('oa-server-path')?{
-    after:'.term-top',slides:false,assetBase:'../assets/img/',reel:true,
-    labels:['SCAN / EASTFIELD','ATTACHMENT / HQ','ORPHAN / WILLOW'],
-    lines:['03:14:22　static inventory scan running…','03:14:23　manifest diff +1 / unresolved','03:14:24　/willow/wish.html　owner: null','archive-web-02　public read-only mirror']
-  }:body.classList.contains('site-minglan')?{
-    host:'.ml-head .inner',after:'.ml-head',slides:true,assetBase:'../assets/img/',reel:true,
-    labels:['校园影像 / 东区','后勤附件 / 旧体育馆','旧站留存 / YL-E-017'],
-    lines:['★ 春季绿化养护进行中 ★ 图书馆周末开放 ★ 南门施工请绕行','校内信息公开：东区夜跑请按保卫处现场指引通行','网络中心：旧版学生论坛仅保留只读镜像','明德笃行 · 岚风致远　请勿攀折校园树木']
-  }:body.classList.contains('site-bbs')?{
-    host:'.bbs-head',after:'.bbs-head',slides:true,assetBase:'../assets/img/',reel:true,
-    labels:['附件缓存 / IMG_0420','旧帖图床 / HQ-0524','校园随拍 / 东区'],
-    lines:['★ 旧版论坛只读镜像 · 附件与头像可能失效 ★','今日热帖：317今晚有热水吗　|　南门文印店几点关门','服务器时间 2017-04-20 22:17　访客模式 / READ ONLY','旧帖恢复任务运行中……部分楼层顺序可能错位']
-  }:body.classList.contains('site-press')?{
-    host:'.press-head',after:'.press-head',slides:true,assetBase:'../assets/img/',reel:true,
-    labels:['摄影部资料 / 东操场','校报附件 / 绿化复查','第102期 / 校园版'],
-    lines:['校报资料室：2012—2017 数字化稿件开放查询','本期勘误：广播节目中断时间更正为 12:01','原稿缺页 7　扫描件正在按期号重新装订','广播旧稿 FM-2016-0411 已恢复索引']
-  }:body.classList.contains('site-houqin')?{
-    host:'.hq-head',after:'.hq-head',slides:true,assetBase:'../assets/img/',reel:true,
-    labels:['CAM-E / 区域定位','IMG_0524 / 工单附件','YL-E-017 / 资产影像'],
-    lines:['HQDATA_02 / PUBLIC　最近同步 2017-04-20 10:24','工单 HQ-2017-0418　东区绿地　状态：已结','树木资产 YL-E-017　非养护性折断记录待复核','旧库迁移完成　未归属静态文件：1']
-  }:body.classList.contains('site-oa')?{
-    host:'.oa-head',after:'.oa-head',slides:true,assetBase:'../assets/img/',reel:true,
-    labels:['BA-P27 / PAPER','CAM-E04 / DEVICE','DISP-3 / ROUTE'],
-    lines:['MLU-ARC / READ ONLY　INDEX 1842 RECORDS','REC_QUERY READY　日期按事件发生日归档','2016-11-17 / EASTFIELD　3 SOURCES PRESERVED','STATIC INVENTORY DIFF +1 / OWNER NULL']
-  }:body.classList.contains('entry-cache')?{
-    host:'.cap-head',after:'.cap-head',slides:true,assetBase:'assets/img/',reel:true,
-    labels:['FORWARD / CAMPUS','ATTACHMENT / LOST','CACHE / WILLOW'],
-    lines:['FORWARD_CACHE / public snapshot / 2017-04-20','原回复 19　恢复 17　附件 1　校验 7e3a','链接预览来自 minglan.edu.cn 历史页面','缓存节点只读 · 原附件可能已经失效']
-  }:null;
+  const storageKey='xuYuanInvestigationV12';
+  const path=location.pathname.replace(/\\/g,'/');
+  const evidenceLabels={
+    notice:'情况说明中的异常措辞',mirror:'旧论坛只读镜像',firstWish:'2012年的最早许愿帖',threeStudents:'2014年的三人目击',retraction:'2016年的删帖说明',treeId:'树木编号 YL-E-017',breaks:'2014-05-24 折枝工单',lateThread:'2016-11-18 东操场帖',paper:'21:46 纸质值班记录',device:'21:51 设备记录',dispatch:'21:58 调度记录',verified:'三源时间链已校验',orphan:'未归属静态路径'
+  };
+  const pageEvidence=[
+    [/\/minglan\/notice-east\.html$/,['notice']],
+    [/\/minglan\/network-civility\.html$/,['mirror']],
+    [/\/bbs\/thread-hanger2012\.html$/,['firstWish']],
+    [/\/bbs\/thread-east2014\.html$/,['threeStudents']],
+    [/\/bbs\/thread-hanger2016\.html$/,['retraction']],
+    [/\/bbs\/thread-eastfield2016\.html$/,['lateThread']],
+    [/\/press\/tree-care\.html$/,['treeId']],
+    [/\/houqin\/workorder-2014-0524\.html$/,['breaks']],
+    [/\/oa\/server-path\.html$/,['orphan']]
+  ];
+  let state={seen:{},compact:false,finished:false};
 
-  function mountTicker(config){
-    if(!config||!config.after)return;
-    const anchor=document.querySelector(config.after);
-    if(!anchor)return;
-    let bar=body.classList.contains('site-minglan')?document.querySelector('.ml-marquee'):null;
-    if(!bar&&anchor.parentNode.querySelector('.legacy-ticker'))return;
-    if(!bar)bar=document.createElement('div');
-    bar.classList.add('legacy-ticker','tone-0');
-    bar.setAttribute('aria-label','旧站轮播信息');
-    const text=bar.querySelector('span')||document.createElement('span');
-    text.className='legacy-ticker-text';
-    if(!text.parentNode)bar.appendChild(text);
-    if(!bar.parentNode)anchor.insertAdjacentElement('afterend',bar);
-    let index=0;
-    const render=()=>{
-      text.classList.remove('is-entering');
-      void text.offsetWidth;
-      text.textContent=config.lines[index];
-      bar.classList.remove('tone-0','tone-1','tone-2','tone-3');
-      bar.classList.add('tone-'+(index%4));
-      text.classList.add('is-entering');
-      index=(index+1)%config.lines.length;
-    };
-    render();
-    if(!reduceMotion)window.setInterval(render,6500);
+  function readState(){
+    try{
+      const stored=JSON.parse(localStorage.getItem(storageKey)||'{}');
+      if(stored&&typeof stored==='object')state={...state,...stored,seen:{...state.seen,...(stored.seen||{})}};
+    }catch(_error){}
   }
+  function writeState(){
+    try{localStorage.setItem(storageKey,JSON.stringify(state));}catch(_error){}
+  }
+  function mark(keys){
+    let changed=false;
+    keys.forEach(key=>{if(!state.seen[key]){state.seen[key]=Date.now();changed=true;}});
+    if(changed)writeState();
+    renderNotebook();
+  }
+  readState();
+  pageEvidence.forEach(([pattern,keys])=>{if(pattern.test(path))mark(keys);});
 
-  function mountSlides(config){
-    if(!config||!config.slides)return;
-    const host=document.querySelector(config.host);
-    if(!host||host.querySelector('.legacy-slides'))return;
-    const holder=document.createElement('div');
-    holder.className='legacy-slides';
-    const base=config.assetBase||'../assets/img/';
-    const sources=[base+'campus_event.jpg',base+'branch_workorder.jpg',base+'willow_main.jpg'];
-    sources.forEach((src,i)=>{
-      const slide=document.createElement('span');
-      slide.className='legacy-slide'+(i===0?' active':'');
-      slide.style.backgroundImage='url("'+src+'")';
-      holder.appendChild(slide);
+  const stages=[
+    {name:'传言',when:()=>true,task:'核对情况说明里的异常措辞，再找到它指向的原始讨论。'},
+    {name:'旧闻',when:()=>state.seen.mirror,task:'按年份与用户名交叉比对：最早许愿、三人目击、后来删帖。'},
+    {name:'记录',when:()=>state.seen.firstWish&&state.seen.threeStudents&&state.seen.retraction,task:'把“那棵树”换成可检索锚点：先找树木编号，再用日期与位置核对工单。'},
+    {name:'记录',when:()=>state.seen.treeId&&state.seen.breaks,task:'工单确认了“三人”。继续沿 qiming_7 查到2016年最后一次东操场警告。'},
+    {name:'名单',when:()=>state.seen.lateThread,task:'帖子发布于11月18日凌晨却写“昨晚”：用2016-11-17＋东操场查询三份记录。'},
+    {name:'许愿',when:()=>state.seen.verified||state.seen.orphan,task:'沿静态目录找到未归属页面。你不需要口令，只需要一条能解释的时间链。'}
+  ];
+  function currentStage(){
+    let current=stages[0];
+    stages.forEach(stage=>{if(stage.when())current=stage;});
+    return current;
+  }
+  function mountNotebook(){
+    if(document.querySelector('.investigation-note')||document.body.classList.contains('site-willow'))return;
+    const note=document.createElement('aside');
+    note.className='investigation-note';
+    note.setAttribute('aria-label','调查便笺');
+    note.innerHTML='<button class="investigation-toggle" type="button" aria-expanded="true"><span>调查便笺</span><b class="investigation-stage"></b></button><div class="investigation-body"><p class="investigation-task"></p><div class="investigation-seen" aria-live="polite"></div><p class="investigation-rule">只记录已见事实；不同站点之间请保留标签页交叉核对。</p></div>';
+    document.body.appendChild(note);
+    note.querySelector('.investigation-toggle').addEventListener('click',()=>{
+      state.compact=!state.compact;
+      writeState();
+      renderNotebook();
     });
-    host.appendChild(holder);
-    if(reduceMotion)return;
-    let current=0;
-    window.setInterval(()=>{
-      const slides=[...holder.children];
-      slides[current].classList.remove('active');
-      current=(current+1)%slides.length;
-      slides[current].classList.add('active');
-    },7200);
+    renderNotebook();
+  }
+  function renderNotebook(){
+    const note=document.querySelector('.investigation-note');
+    if(!note)return;
+    const stage=currentStage();
+    note.classList.toggle('is-compact',!!state.compact);
+    note.querySelector('.investigation-toggle').setAttribute('aria-expanded',String(!state.compact));
+    note.querySelector('.investigation-stage').textContent=stage.name;
+    note.querySelector('.investigation-task').textContent='当前调查：'+stage.task;
+    const known=Object.keys(evidenceLabels).filter(key=>state.seen[key]);
+    const relevant=known.slice(Math.max(0,known.length-4));
+    note.querySelector('.investigation-seen').innerHTML=relevant.length?'<span>已记下</span>'+relevant.map(key=>'<i>'+evidenceLabels[key]+'</i>').join(''):'<span>已记下</span><i>尚无可确认事实</i>';
+    document.body.classList.add('investigation-ready');
   }
 
-  function mountMemoryReel(config){
-    if(!config||!config.reel||document.querySelector('.legacy-memory-reel'))return;
-    const ticker=document.querySelector('.legacy-ticker');
-    if(!ticker)return;
-    const base=config.assetBase||'../assets/img/';
-    const sources=[base+'campus_event.jpg',base+'branch_workorder.jpg',base+'willow_main.jpg'];
-    const reel=document.createElement('div');
-    reel.className='legacy-memory-reel';
-    reel.setAttribute('aria-label','旧站影像轮播');
-    const track=document.createElement('div');
-    track.className='legacy-memory-track';
-    [...sources,...sources].forEach((src,index)=>{
-      const item=document.createElement('figure');
-      item.className='legacy-memory-item memory-'+(index%3);
-      const picture=document.createElement('img');
-      picture.src=src;
-      picture.alt='';
-      const caption=document.createElement('figcaption');
-      caption.textContent=config.labels[index%3];
-      item.append(picture,caption);
-      track.appendChild(item);
-    });
-    reel.appendChild(track);
-    ticker.insertAdjacentElement('afterend',reel);
-  }
-
+  window.addEventListener('xu-evidence',event=>{
+    const keys=Array.isArray(event.detail)?event.detail:[event.detail];
+    mark(keys.filter(key=>evidenceLabels[key]));
+  });
+  window.addEventListener('storage',event=>{
+    if(event.key!==storageKey)return;
+    readState();
+    renderNotebook();
+  });
 
   function addRouteNotes(){
-    const path=location.pathname;
-    const notes={
-      '/minglan/notice-east.html':['网传截图如需核对原始来源，请查看网络文明专题保留的旧版论坛镜像。','network-civility.html'],
-      '/bbs/thread-east2017.html':['缓存楼层号并非写入顺序；更早记录请从“旧帖存档”按年份查找。','archive.html'],
-      '/oa/incidents.html':['归档日期以事件发生日为准；凌晨发布的帖子可能描述的是前一晚。','']
-    };
-    const key=Object.keys(notes).find(k=>path.endsWith(k));
-    if(!key)return;
+    const notes=[
+      [/\/minglan\/notice-east\.html$/,['索引说明：','“失实信息”不是结论锚点；先追到校方所指的原始讨论。','network-civility.html','查看公开资源']],
+      [/\/bbs\/thread-east2017\.html$/,['缓存说明：','楼层号与写入顺序不同。更早记录应按年份或用户名查，而不是只盯着当前热帖。','archive.html','打开旧帖存档']],
+      [/\/bbs\/thread-eastfield2016\.html$/,['日期换算：','本帖发布于 2016-11-18 凌晨，正文中的“昨晚”对应 2016-11-17；历史节点按事件发生日归档。','../houqin/migrate.html','查看旧库入口']],
+      [/\/houqin\/workorder-2014-0524\.html$/,['字段说明：','公开工单隐去姓名，但保留了日期、位置、人数和树木编号；这些字段都能在别处复核。','migrate.html','查看迁移规则']],
+      [/\/oa\/incidents\.html$/,['查询说明：','日期按事件发生日归档；区域使用当年行政名称。查询结果只给原始摘要，不替你合并因果。','','']],
+      [/\/oa\/eastfield-2016\.html$/,['互证说明：','纸张、设备、调度三份来源各自独立；依次查看后，再判断谁先发生、谁创造了空窗。','','']]
+    ];
+    const match=notes.find(([pattern])=>pattern.test(path));
+    if(!match)return;
     const main=document.querySelector('main');
     if(!main||main.querySelector('.archive-route-note'))return;
     const note=document.createElement('p');
     note.className='archive-route-note';
-    note.innerHTML='<span>索引说明：</span>'+notes[key][0]+(notes[key][1]?' <a href="'+notes[key][1]+'">查看相关索引</a>':'');
+    note.innerHTML='<span>'+match[1]+'</span>'+match[2]+(match[3]?' <a href="'+match[3]+'">'+match[4]+'</a>':'');
     main.appendChild(note);
   }
 
-  mountTicker(siteConfig);
-  mountSlides(siteConfig);
-  mountMemoryReel(siteConfig);
-  addRouteNotes();
+  function restoreAfterEnding(){
+    if(!state.finished||!document.body.classList.contains('entry-cache'))return;
+    const foot=document.querySelector('.cap-foot');
+    if(!foot||document.querySelector('.return-receipt'))return;
+    const receipt=document.createElement('div');
+    receipt.className='return-receipt';
+    receipt.innerHTML='<span>LOCAL RECEIPT / 01</span><b>你留下的愿望没有被上传；这次调查已经在本机结束。</b>';
+    foot.insertAdjacentElement('beforebegin',receipt);
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{mountNotebook();addRouteNotes();restoreAfterEnding();});
+  else{mountNotebook();addRouteNotes();restoreAfterEnding();}
 })();

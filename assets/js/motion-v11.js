@@ -1,88 +1,108 @@
 (function(){
+  'use strict';
   const body=document.body;
   const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const config=body.classList.contains('oa-server-path')?{
-    after:'.term-top',base:'../assets/img/',labels:['SCAN / EASTFIELD','ATTACHMENT / HQ','ORPHAN / WILLOW'],
-    lines:['03:14:22　static inventory scan running…','03:14:23　manifest diff +1 / unresolved','03:14:24　/willow/wish.html　owner: null']
-  }:body.classList.contains('site-minglan')?{
-    after:'.ml-head',host:'.ml-head .inner',base:'../assets/img/',labels:['校园影像 / 东区','后勤附件 / 旧体育馆','旧站留存 / YL-E-017']
-  }:body.classList.contains('site-bbs')?{
-    after:'.bbs-head',host:'.bbs-head',base:'../assets/img/',labels:['附件缓存 / IMG_0420','旧帖图床 / HQ-0524','校园随拍 / 东区']
-  }:body.classList.contains('site-press')?{
-    after:'.press-head',host:'.press-head',base:'../assets/img/',labels:['摄影部资料 / 东操场','校报附件 / 绿化复查','第102期 / 校园版']
-  }:body.classList.contains('site-houqin')?{
-    after:'.hq-head',host:'.hq-head',base:'../assets/img/',labels:['CAM-E / 区域定位','IMG_0524 / 工单附件','YL-E-017 / 资产影像']
-  }:body.classList.contains('site-oa')?{
-    after:'.oa-head',host:'.oa-head',base:'../assets/img/',labels:['BA-P27 / PAPER','CAM-E04 / DEVICE','DISP-3 / ROUTE']
-  }:body.classList.contains('entry-cache')?{
-    after:'.cap-head',host:'.cap-head',base:'assets/img/',labels:['FORWARD / CAMPUS','ATTACHMENT / LOST','CACHE / WILLOW']
-  }:null;
+  const root=body.classList.contains('entry-cache')?'assets/img/':'../assets/img/';
+  const configs={
+    minglan:{test:'site-minglan',after:'.ml-head',host:'.ml-head .inner',kind:'photos',lines:['★ 春季绿化养护进行中 ★ 图书馆周末开放 ★ 南门施工请绕行','校内信息公开：东区夜跑请按保卫处现场指引通行','网络中心：旧版学生论坛仅保留只读镜像','明德笃行 · 岚风致远　请勿攀折校园树木'],cards:[['campus_event.jpg','校园风采 / 春季活动'],['branch_workorder.jpg','公开附件 / 东区绿化'],['willow_main.jpg','校园影像 / 东操场']]},
+    bbs:{test:'site-bbs',after:'.bbs-head',kind:'bulletin',lines:['★ 旧版论坛只读镜像 · 附件与头像可能失效 ★','今日热帖：317今晚有热水吗　|　南门文印店几点关门','服务器时间 2017-04-20 22:17　访客模式 / READ ONLY','旧帖恢复任务运行中……部分楼层顺序可能错位'],cards:[['HOT','今日热帖','生活帖与校园闲聊持续更新'],['ARCHIVE','旧帖恢复','楼层号与写入顺序可能不同'],['NOTICE','镜像提示','请按年份、标题或用户名查找']]},
+    press:{test:'site-press',after:'.press-head',kind:'contact',lines:['校报资料室：2012—2017 数字化稿件开放查询','本期勘误：广播节目中断时间更正为 12:01','原稿缺页 7　扫描件正在按期号重新装订','广播旧稿 FM-2016-0411 已恢复索引'],cards:[['campus_event.jpg','第102期 / 校园版'],['branch_workorder.jpg','摄影附件 / 绿化复查'],['willow_main.jpg','底片索引 / 东操场']]},
+    houqin:{test:'site-houqin',after:'.hq-head',kind:'map',lines:['HQDATA_02 / PUBLIC　最近同步 2017-04-20 10:24','工单 HQ-2017-0418　东区绿地　状态：已结','树木资产 YL-E-017　非养护性折断记录待复核','旧库迁移完成　未归属静态文件：1'],cards:[['E-01','东操场北侧','巡查区域'],['YL-E-017','树木资产','记录完整'],['HQ-0524','复查工单','附件可读']]},
+    oa:{test:'site-oa',after:'.oa-head',kind:'records',lines:['MLU-ARC / READ ONLY　INDEX 1842 RECORDS','REC_QUERY READY　日期按事件发生日归档','2016-11-17 / EASTFIELD　3 SOURCES PRESERVED','STATIC INVENTORY DIFF +1 / OWNER NULL'],cards:[['21:46','BA-P27','PAPER'],['21:51','CAM-E04','DEVICE'],['21:58','DISP-3','ROUTE']]},
+    entry:{test:'entry-cache',after:'.cap-head',host:'.cap-head',kind:'cache',lines:['FORWARD_CACHE / public snapshot / 2017-04-20','原回复 19　恢复 17　附件 1　校验 7e3a','链接预览来自 minglan.edu.cn 历史页面','缓存节点只读 · 原附件可能已经失效'],cards:[['campus_event.jpg','FORWARD / CAMPUS'],['branch_workorder.jpg','ATTACHMENT / LOST'],['willow_main.jpg','CACHE / WILLOW']]}
+  };
+  const config=Object.values(configs).find(item=>body.classList.contains(item.test));
   if(!config)return;
 
-  let ticker=document.querySelector('.legacy-ticker');
-  if(!ticker){
-    const anchor=document.querySelector(config.after);
-    if(!anchor)return;
-    ticker=document.createElement('div');
-    ticker.className='legacy-ticker tone-0';
-    ticker.setAttribute('aria-label','旧站轮播信息');
-    const text=document.createElement('span');
-    text.className='legacy-ticker-text';
-    ticker.appendChild(text);
-    anchor.insertAdjacentElement('afterend',ticker);
-    const lines=config.lines||['明岚大学旧站镜像 / READ ONLY','缓存影像正在轮转显示','部分原始附件已经失效'];
-    let line=0;
-    const update=()=>{
-      text.textContent=lines[line];
-      ticker.classList.remove('tone-0','tone-1','tone-2','tone-3');
-      ticker.classList.add('tone-'+(line%4));
-      line=(line+1)%lines.length;
-    };
-    update();
-    if(!reduced)window.setInterval(update,6500);
-  }
+  const anchor=document.querySelector(body.classList.contains('oa-server-path')?'.term-top':config.after);
+  if(!anchor)return;
+  const ticker=document.createElement('div');
+  ticker.className='legacy-ticker tone-0';
+  ticker.setAttribute('aria-label','旧站轮播信息');
+  const tickerText=document.createElement('span');
+  tickerText.className='legacy-ticker-text';
+  ticker.appendChild(tickerText);
+  anchor.insertAdjacentElement('afterend',ticker);
 
-  if(config.host&&!document.querySelector(config.host+' > .legacy-slides')){
+  const stage=document.createElement('section');
+  stage.className='site-motion site-motion-'+config.kind;
+  stage.setAttribute('aria-label','站点动态信息');
+  const cards=document.createElement('div');
+  cards.className='site-motion-track';
+  config.cards.forEach((card,index)=>{
+    const item=document.createElement('article');
+    item.className='site-motion-card'+(index===0?' active':'');
+    if(['photos','contact','cache'].includes(config.kind)){
+      const image=document.createElement('img');
+      image.src=root+card[0];
+      image.alt='';
+      const label=document.createElement('span');
+      label.textContent=card[1];
+      item.append(image,label);
+    }else{
+      item.innerHTML='<b>'+card[0]+'</b><span>'+card[1]+'</span><small>'+card[2]+'</small>';
+    }
+    cards.appendChild(item);
+  });
+  const meter=document.createElement('div');
+  meter.className='site-motion-meter';
+  meter.innerHTML=config.cards.map((_,index)=>'<i'+(index===0?' class="active"':'')+'></i>').join('');
+  stage.append(cards,meter);
+  ticker.insertAdjacentElement('afterend',stage);
+
+  if(config.host&&['photos','cache'].includes(config.kind)){
     const host=document.querySelector(config.host);
     if(host){
-      const holder=document.createElement('div');
-      holder.className='legacy-slides';
-      ['campus_event.jpg','branch_workorder.jpg','willow_main.jpg'].forEach((name,index)=>{
+      const slides=document.createElement('div');
+      slides.className='legacy-slides';
+      config.cards.forEach((card,index)=>{
         const slide=document.createElement('span');
         slide.className='legacy-slide'+(index===0?' active':'');
-        slide.style.backgroundImage='url("'+config.base+name+'")';
-        holder.appendChild(slide);
+        slide.style.backgroundImage='url("'+root+card[0]+'")';
+        slides.appendChild(slide);
       });
-      host.appendChild(holder);
-      if(!reduced){
-        let active=0;
-        window.setInterval(()=>{
-          holder.children[active].classList.remove('active');
-          active=(active+1)%holder.children.length;
-          holder.children[active].classList.add('active');
-        },7200);
-      }
+      host.appendChild(slides);
     }
   }
 
-  if(document.querySelector('.legacy-memory-reel'))return;
-  const reel=document.createElement('div');
-  reel.className='legacy-memory-reel';
-  reel.setAttribute('aria-label','旧站影像轮播');
-  const track=document.createElement('div');
-  track.className='legacy-memory-track';
-  const names=['campus_event.jpg','branch_workorder.jpg','willow_main.jpg'];
-  [...names,...names].forEach((name,index)=>{
-    const item=document.createElement('figure');
-    item.className='legacy-memory-item memory-'+(index%3);
-    const image=document.createElement('img');
-    image.src=config.base+name;
-    image.alt='';
-    const caption=document.createElement('figcaption');
-    caption.textContent=config.labels[index%3];
-    item.append(image,caption);
-    track.appendChild(item);
-  });
-  reel.appendChild(track);
-  ticker.insertAdjacentElement('afterend',reel);
+  let line=0;
+  let active=0;
+  const renderLine=()=>{
+    tickerText.textContent=config.lines[line];
+    ticker.className='legacy-ticker tone-'+(line%4);
+    tickerText.classList.remove('is-entering');
+    void tickerText.offsetWidth;
+    tickerText.classList.add('is-entering');
+    line=(line+1)%config.lines.length;
+  };
+  const renderCard=()=>{
+    const all=[...cards.children];
+    const dots=[...meter.children];
+    all[active].classList.remove('active');
+    dots[active].classList.remove('active');
+    const slides=document.querySelectorAll('.legacy-slide');
+    if(slides[active])slides[active].classList.remove('active');
+    active=(active+1)%all.length;
+    all[active].classList.add('active');
+    dots[active].classList.add('active');
+    if(slides[active])slides[active].classList.add('active');
+  };
+  renderLine();
+  if(!reduced){
+    let lineTimer=null;
+    let cardTimer=null;
+    const start=()=>{
+      if(lineTimer||document.hidden)return;
+      lineTimer=window.setInterval(renderLine,6200);
+      cardTimer=window.setInterval(renderCard,5200);
+    };
+    const stop=()=>{
+      if(lineTimer)window.clearInterval(lineTimer);
+      if(cardTimer)window.clearInterval(cardTimer);
+      lineTimer=null;
+      cardTimer=null;
+    };
+    document.addEventListener('visibilitychange',()=>{document.hidden?stop():start();});
+    start();
+  }
 })();
