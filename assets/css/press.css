@@ -36,3 +36,7 @@ body.site-press{background:linear-gradient(180deg,#151311,#050505)!important}
 .site-press .press{box-shadow:8px 10px 0 #101010,18px 24px 50px rgba(0,0,0,.78)}
 @media(max-width:680px){.press-archive-photo img{height:180px}}
 .press-tree-care .press-article:after{content:none!important}
+
+/* V20 — editorial margins carry fixed contradictions instead of empty paper. */
+.press-margin-note{margin:14px 0 0;padding:9px 10px;border-top:3px double #6d6252;border-bottom:1px solid #9e927f;background:#d7cdb8;line-height:1.8}.press-margin-note b{color:#71342f}.press-archive-photo img{animation:pressFilmDrift 17s ease-in-out infinite alternate;transform-origin:center 42%}@keyframes pressFilmDrift{from{transform:scale(1.01)}to{transform:scale(1.055) translateY(-1%)}}@media(prefers-reduced-motion:reduce){.press-archive-photo img{animation:none}}
+.press-index-note{margin:7px 0 11px;padding:8px 9px;border:1px solid #9a8d78;background:#d8ceb8;line-height:1.75}.press-index-note b{color:#73322d}

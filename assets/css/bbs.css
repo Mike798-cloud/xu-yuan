@@ -99,3 +99,10 @@ body.bbs-key-thread.bbs-anomaly-open .bbs-main{background:#f0f2f3!important;box-
 .thread-edge-banner:before{background:linear-gradient(180deg,#111820,#050607)!important}
 @media(max-width:680px){body.site-bbs:before{display:none}}
 .site-bbs .post-user:after{content:none!important}
+
+/* V20 — fixed archive unease; no page changes are tied to progress. */
+.thread-source-note{margin:10px 0 18px;padding:8px 10px;border:1px solid #4e4a46;background:#1b1918;color:#b9aea1;font:11px/1.75 SimSun,serif}.thread-source-note a{color:#d1a477}
+.bbs-key-thread .bbs-stage-frame{background-size:cover;background-position:center;animation:bbsArchiveDrift 18s ease-in-out infinite alternate;filter:saturate(.72) contrast(1.18) brightness(.68)}
+.bbs-key-thread .motion-bbs-stage:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,7,7,.02),rgba(10,7,7,.28));mix-blend-mode:multiply}
+@keyframes bbsArchiveDrift{from{transform:scale(1.015)}to{transform:scale(1.075) translate(-1.2%,-.7%)}}
+@media(prefers-reduced-motion:reduce){.bbs-key-thread .bbs-stage-frame{animation:none}}

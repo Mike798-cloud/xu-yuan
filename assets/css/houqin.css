@@ -36,3 +36,13 @@ body.site-houqin{background:linear-gradient(180deg,#07100c,#020403)!important;pa
 .hq-photo-map img{display:block;width:100%;height:300px;object-fit:cover;object-position:center 46%;filter:grayscale(.18) saturate(.52) contrast(1.18) brightness(.72)}
 .hq-photo-map figcaption{padding:6px 9px;background:#152019;color:#c9c0a1;font:9px/1.5 Consolas,SimSun,monospace;letter-spacing:1px}
 @media(max-width:680px){.hq-photo-map img{height:200px}}
+
+/* V20 — attachment conventions turn maintenance records into usable evidence. */
+.hq-note{margin:9px 0;padding:7px 8px;border:1px solid #89978e;background:#eef0e5;line-height:1.75;color:#445247}.hq-note strong{color:#284b39}.hq-attachment-strip{display:grid;grid-template-columns:auto repeat(4,1fr) auto;gap:4px;align-items:center;margin:10px 0;padding:6px;border:1px solid #7c8a81;background:#c9d1cb;font:10px/1.45 Consolas,monospace}.hq-attachment-strip span{padding:5px 6px;border:1px solid #9aa69e;background:#eef1ef}.hq-attachment-strip em{font-style:normal;color:#5a695f}.hq-attachment-strip .missing{border-style:dashed;color:#7a5148;background:#ddd7cf}.hq-attachment-check{margin-top:10px;padding:9px;border:1px solid #67796e;background:#d4dad5}.hq-attachment-check h3{margin:-9px -9px 8px!important;padding:5px 7px!important;background:#314f40!important;color:#eef4f0!important}.attachment-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:8px 0}.attachment-options button{border:1px solid #6c7d72;background:#f0f2f0;padding:6px 7px;text-align:left;color:#2e4035;cursor:pointer}.attachment-options button.is-picked{background:#aebdb3}.attachment-options button.is-wrong{box-shadow:inset 4px 0 #80544d}.attachment-feedback{margin:6px 0;color:#5f6a63}.attachment-result{margin-top:8px;padding:8px;border:1px solid #78897f;background:#edf0ed;line-height:1.75}.attachment-result strong{color:#264838}
+@media(max-width:680px){.hq-attachment-strip{grid-template-columns:1fr 1fr}.hq-attachment-strip b,.hq-attachment-strip em{grid-column:1/-1}.attachment-options{grid-template-columns:1fr}}
+
+/* V20: historical migration anchor — fixed content, no progress mutation */
+.migration-sample{margin:14px 0;padding:11px 13px;border:1px solid #8c8069;background:#e7dfcb;font-family:"SimSun","Songti SC",serif;line-height:1.75}
+.migration-sample strong{display:block;color:#5f211e;margin-bottom:3px}
+.migration-sample span{display:block;border-bottom:1px dotted rgba(81,69,52,.28)}
+.migration-sample small{display:block;margin-top:6px;color:#6f675b}

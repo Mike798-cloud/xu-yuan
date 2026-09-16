@@ -14,8 +14,7 @@
     {date:'2016-11-17',area:'dorm3',id:'DORM3-HOT-2204',time:'2016-11-17 22:04',source:'热水',summary:'供水压力恢复'}
   ];
   const labels={oldgym:'旧体育馆',dorm3:'3号宿舍楼',radio:'广播站 / 东区配电',eastfield:'东操场',admin:'行政楼'};
-  let storedVerified=false;
-  try{storedVerified=localStorage.getItem('xuYuanEvidenceGateV16')==='verified';}catch(_error){}
+
   const form=document.getElementById('archiveQuery');
   if(form){
     const date=document.getElementById('qDate');
@@ -42,17 +41,37 @@
     document.getElementById('queryReset')?.addEventListener('click',()=>{date.value='';area.value='';box.hidden=true;msg.textContent='ready.';});
   }
 
+  const crossref=document.getElementById('crossrefCheck');
+  if(crossref){
+    const submit=document.getElementById('crossrefSubmit');
+    const feedback=document.getElementById('crossrefFeedback');
+    const result=document.getElementById('crossrefResult');
+    submit?.addEventListener('click',()=>{
+      const a=document.getElementById('crossrefA')?.value;
+      const b=document.getElementById('crossrefB')?.value;
+      const c=document.getElementById('crossrefC')?.value;
+      if(!a||!b||!c){feedback.textContent='还有编号没有核对来源。';result.hidden=true;return;}
+      if(a==='academic'&&b==='hq'&&c==='radio'){
+        feedback.textContent='三项来源一致。静态清单里的无归属页面可以继续打开。';
+        result.hidden=false;
+      }else{
+        feedback.textContent='有一项来源对不上。编号前缀和前面看过的公开记录能够互相核对。';
+        result.hidden=true;
+      }
+    });
+  }
+
   const tabs=[...document.querySelectorAll('[data-oa-tab]')];
   if(!tabs.length)return;
   const sources=[...document.querySelectorAll('[data-oa-source]')];
   const selected=document.getElementById('selectedRecord');
   const strip=document.querySelector('.oa-tabs');
   const viewed=new Set();
-
   const gate=document.getElementById('evidenceForm');
   const submit=document.getElementById('evidenceSubmit');
   const feedback=document.getElementById('evidenceFeedback');
   const reveal=document.getElementById('serverPathReveal');
+
   function updateViewed(){
     document.querySelectorAll('[data-source-seen]').forEach(badge=>{
       const seen=viewed.has(badge.dataset.sourceSeen);
@@ -61,12 +80,10 @@
     });
     if(submit)submit.disabled=viewed.size<3;
     if(feedback&&!feedback.classList.contains('success')){
-      feedback.textContent=viewed.size<3
-        ?'还有 '+(3-viewed.size)+' 份记录未打开。'
-        :'三份记录已打开。请只依据时间戳与原始字段完成互证。';
+      feedback.textContent=viewed.size<3?'还有 '+(3-viewed.size)+' 份记录未打开。':'三份记录已打开。只按时间戳和原始字段核对。';
     }
   }
-  const open=key=>{
+  function open(key){
     const button=tabs.find(tab=>tab.dataset.oaTab===key)||tabs[0];
     tabs.forEach(tab=>{
       const active=tab===button;
@@ -84,33 +101,25 @@
     viewed.add(button.dataset.oaTab);
     updateViewed();
     history.replaceState(null,'','#'+button.dataset.oaTab);
-  };
+  }
   tabs.forEach(tab=>tab.addEventListener('click',()=>open(tab.dataset.oaTab)));
   const hash=location.hash.replace('#','');
   open(hash&&tabs.some(tab=>tab.dataset.oaTab===hash)?hash:tabs[0].dataset.oaTab);
 
-  const verified=storedVerified;
-  function showVerified(){
-    if(reveal){
-      reveal.hidden=false;
-      requestAnimationFrame(()=>reveal.classList.add('is-revealed'));
-    }
-    if(feedback){feedback.classList.add('success');feedback.textContent='时间链校验通过。三份来源记录的原始时间没有被改写。';}
-    if(submit){submit.disabled=false;submit.textContent='校验完成';}
-  }
-  if(verified)showVerified();
   if(gate)gate.addEventListener('submit',event=>{
     event.preventDefault();
     if(viewed.size<3){updateViewed();return;}
     const first=document.getElementById('evidenceFirst').value;
     const cause=document.getElementById('evidenceCause').value;
     const clock=document.getElementById('evidenceClock').value;
-    if(first!=='injury-student-cancel')feedback.textContent='未通过：请按 21:46、21:51、21:58 重新排列三条记录。';
-    else if(cause!=='wish-after-injury')feedback.textContent='未通过：论坛缓存写明 21:52，晚于 21:46 的受伤记录。';
-    else if(clock!=='no-gap-large')feedback.textContent='未通过：CAM-E04 当日漂移小于3秒，无法颠倒约7分钟的先后关系。';
+    if(first!=='injury-student-cancel')feedback.textContent='未通过：请按三份原始记录的时间重新排列。';
+    else if(cause!=='wish-after-injury')feedback.textContent='未通过：论坛缓存是21:52，纸质受伤记录是21:46。';
+    else if(clock!=='no-gap-large')feedback.textContent='未通过：CAM-E04当日漂移小于3秒，无法颠倒约7分钟的顺序。';
     else{
-      try{localStorage.setItem('xuYuanEvidenceGateV16','verified');}catch(_error){}
-      showVerified();
+      feedback.classList.add('success');
+      feedback.textContent='时间链校验通过。三份来源各自保留原始时间。';
+      if(submit){submit.disabled=true;submit.textContent='校验完成';}
+      if(reveal){reveal.hidden=false;requestAnimationFrame(()=>reveal.classList.add('is-revealed'));}
     }
   });
 })();
