@@ -7,7 +7,7 @@ html{background:#030605}body{min-height:100vh;background:
 /* V9 — municipal/ASP workstation visual language, intentionally cramped and ugly. */
 body.site-houqin{background:
  linear-gradient(rgba(34,49,40,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(34,49,40,.12) 1px,transparent 1px),#020403;background-size:20px 20px;padding-top:7px}
-.site-houqin .hq{position:relative;margin-left:max(16px,calc((100vw - 1190px)/2));margin-right:0;box-shadow:6px 8px 0 #0b0f0c,14px 18px 38px rgba(0,0,0,.72)}
+.site-houqin .hq{position:relative;margin:0 auto;box-shadow:6px 8px 0 #0b0f0c,14px 18px 38px rgba(0,0,0,.72)}
 .site-houqin .hq:before{content:"MINGLAN UNIVERSITY / HQDATA_02 / IE ONLY";display:block;height:18px;padding:2px 6px;background:linear-gradient(90deg,#1d3d30,#51705f);color:#e9efe9;border-bottom:1px solid #101c16;font:10px/14px Tahoma,Arial,sans-serif}
 .site-houqin .hq:after{font-family:Tahoma,Arial,SimSun,sans-serif}
 .site-houqin .hq-head{background:#29493a}.site-houqin .hq-nav{background:#aeb7b0}.site-houqin .hq-body{background:#aeb7b1}.site-houqin .hq-box{box-shadow:inset 1px 1px #f1f3f1,1px 1px #7b8980}
@@ -25,4 +25,4 @@ body.hq-map-page{width:auto;aspect-ratio:auto}
 @media(max-width:680px){.site-houqin .hq{min-height:100vh}}
 
 /* V13 — dense workstation, reduced outer void. */
-@media(min-width:900px){.hq{width:1160px}.site-houqin .hq{margin-left:max(14px,calc((100vw - 1260px)/2))}}
+@media(min-width:900px){.site-houqin .hq{width:min(1240px,calc(100% - 36px));max-width:none;margin:0 auto}}

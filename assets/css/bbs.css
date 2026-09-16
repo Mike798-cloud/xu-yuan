@@ -8,7 +8,7 @@ body.site-bbs{padding-top:7px;background:
  radial-gradient(ellipse at 15% 10%,rgba(49,63,82,.1),transparent 23%),
  radial-gradient(ellipse at 84% 80%,rgba(90,26,47,.08),transparent 20%),
  repeating-linear-gradient(0deg,#030405 0,#030405 5px,#060708 6px)}
-.site-bbs .bbs{position:relative;margin-left:max(18px,calc((100vw - 1210px)/2));margin-right:0;width:1060px;box-shadow:6px 7px 0 #0b0d0f,12px 17px 34px rgba(0,0,0,.7)}
+.site-bbs .bbs{position:relative;width:min(1280px,calc(100% - 36px));max-width:none;margin:0 auto;box-shadow:6px 7px 0 #0b0d0f,12px 17px 34px rgba(0,0,0,.7)}
 .site-bbs .bbs:before{content:"★ 旧版论坛只读镜像　·　附件与头像可能失效　·　请勿重复注册 ★";display:block;background:#111820;color:#d8dfe4;border-bottom:1px solid #354450;padding:3px 9px;text-align:center;font:10px SimSun,serif;letter-spacing:1px}
 .site-bbs .bbs-head{background-color:#d9dfe2}.site-bbs .bbs-head h1{font-family:STKaiti,KaiTi,SimSun,serif;letter-spacing:3px;text-shadow:1px 1px #fff,2px 0 rgba(58,87,111,.22)}
 .site-bbs .board-title,.site-bbs .hot-table th{background:linear-gradient(#d6dde2,#bcc8d0)}
@@ -22,7 +22,8 @@ body.site-bbs{padding-top:7px;background:
 @media(max-width:680px){.site-bbs .bbs{margin:0;width:100%;box-shadow:none}}
 
 /* V10 — corrected masthead geometry and a viewport-filling archive shell. */
-.site-bbs .bbs{min-height:calc(100vh - 28px);display:flex;flex-direction:column}
+.site-bbs .bbs{display:flex;flex-direction:column}
+.bbs-index .bbs,.bbs-archive .bbs{min-height:calc(100vh - 28px)}
 .site-bbs .bbs-main{flex:1}
 .site-bbs .bbs-head{height:86px;align-items:center}
 .site-bbs .bbs-head:after{height:100%;opacity:.42}
@@ -33,7 +34,7 @@ body.site-bbs{padding-top:7px;background:
 .site-bbs .ambient-post .post-user{background:#d8e0e5}
 .site-bbs .ambient-post .post-meta{color:#88735f}
 .site-bbs .member-profile{color:#596873;font-size:10px;line-height:1.45}
-@media(max-width:680px){.site-bbs .bbs{min-height:100vh}.site-bbs .bbs-head{height:76px}.site-bbs .legacy-slides{width:56%}}
+@media(max-width:680px){.bbs-index .bbs,.bbs-archive .bbs{min-height:100vh}.site-bbs .bbs-head{height:76px}.site-bbs .legacy-slides{width:56%}}
 
 /* V11 — complete thread pages and photographic early-web avatars. */
 .site-bbs .avatar{background-image:url('../img/forum-avatars-v2.jpg');background-size:800% 400%;background-position:var(--avatar-x,0) var(--avatar-y,0);background-repeat:no-repeat;filter:saturate(.72) contrast(.96);box-shadow:inset 0 0 0 1px rgba(255,255,255,.55),1px 1px 0 #7c8b95}
@@ -48,4 +49,4 @@ body.site-bbs{padding-top:7px;background:
 @media(prefers-reduced-motion:reduce){.site-bbs .post:not([hidden]){animation:none}}
 
 /* V13 — the forum occupies the display like a full old portal, not a narrow card. */
-@media(min-width:900px){.bbs{width:1280px}}
+@media(min-width:900px){.site-bbs .bbs{width:min(1280px,calc(100% - 36px))}}

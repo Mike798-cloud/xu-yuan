@@ -87,11 +87,12 @@
   open(hash&&tabs.some(tab=>tab.dataset.oaTab===hash)?hash:tabs[0].dataset.oaTab);
 
   let verified=false;
-  try{verified=localStorage.getItem('xuYuanEvidenceGateV14')==='verified';}catch(_error){}
+  try{verified=localStorage.getItem('xuYuanEvidenceGateV15')==='verified';}catch(_error){}
   function showVerified(){
     if(reveal)reveal.hidden=false;
     if(feedback){feedback.classList.add('success');feedback.textContent='校验通过。三份记录的先后关系一致。';}
     if(submit){submit.disabled=false;submit.textContent='校验完成';}
+    document.dispatchEvent(new CustomEvent('xu:evidence-verified',{detail:{message:'INDEX 1842 → 1843 / UNOWNED PATH +1'}}));
   }
   if(verified)showVerified();
   if(gate)gate.addEventListener('submit',event=>{
@@ -99,12 +100,12 @@
     if(viewed.size<3){updateViewed();return;}
     const first=document.getElementById('evidenceFirst').value;
     const cause=document.getElementById('evidenceCause').value;
-    const after=document.getElementById('evidenceAfter').value;
+    const clock=document.getElementById('evidenceClock').value;
     if(first!=='injury-student-cancel')feedback.textContent='未通过：请按 21:46、21:51、21:58 重新排列三条记录。';
     else if(cause!=='wish-caused-injury')feedback.textContent='未通过：请选择记录中没有证据支持的说法。';
-    else if(after!=='gap-before-cancel')feedback.textContent='未通过：请比较学生进入时，人员受伤与取消指令是否已经发生。';
+    else if(clock!=='no-gap-large')feedback.textContent='未通过：CAM-E04 当日漂移小于3秒，无法颠倒约7分钟的先后关系。';
     else{
-      try{localStorage.setItem('xuYuanEvidenceGateV14','verified');}catch(_error){}
+      try{localStorage.setItem('xuYuanEvidenceGateV15','verified');}catch(_error){}
       showVerified();
     }
   });

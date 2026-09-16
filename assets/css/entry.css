@@ -15,7 +15,7 @@ body.entry-cache:before{content:"FORWARD_CACHE // 2017 // READ ONLY";position:fi
  linear-gradient(113deg,transparent 0 46%,#4a4a43 46.4% 47%,transparent 47.4%),
  linear-gradient(105deg,transparent 0 57%,#33352f 57.3% 57.7%,transparent 58%),
  linear-gradient(123deg,transparent 0 68%,#2e312d 68.2% 68.6%,transparent 69%)}
-.entry-cache .capture{position:relative;z-index:2;width:930px;max-width:calc(100vw - 74px);margin:0 0 0 max(22px,calc((100vw - 1160px)/2));background:#b9b2a6;border:1px solid #6f675d;box-shadow:7px 9px 0 #111,13px 18px 34px rgba(0,0,0,.68);transform:rotate(-.08deg)}
+.entry-cache .capture{position:relative;z-index:2;width:min(1080px,calc(100vw - 96px));max-width:none;margin:0 0 0 max(24px,calc((100vw - 1220px)/2));background:#b9b2a6;border:1px solid #6f675d;box-shadow:7px 9px 0 #111,13px 18px 34px rgba(0,0,0,.68);transform:rotate(-.08deg)}
 .entry-cache .cap-head{background:#333a34;border-top:1px solid #77786f;color:#e8e2d5}
 .entry-cache .cap-post{background:#e9e3d7;background-image:linear-gradient(rgba(85,65,45,.025) 1px,transparent 1px);background-size:100% 4px}
 .entry-cache .cap-post h1{font-size:22px;color:#28251f;text-shadow:1px 1px #f4efe5}

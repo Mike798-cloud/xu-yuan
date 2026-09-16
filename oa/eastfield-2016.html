@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>REC-2016-1117 / eastfield</title>
-  <link rel="stylesheet" href="../assets/css/common.css?v=14">
-  <link rel="stylesheet" href="../assets/css/oa.css?v=14">
-  <script defer src="../assets/js/common.js?v=14"></script>
-  <script defer src="../assets/js/motion-v11.js?v=14"></script>
-  <script defer src="../assets/js/oa.js?v=14"></script>
+  <link rel="stylesheet" href="../assets/css/common.css?v=15">
+  <link rel="stylesheet" href="../assets/css/oa.css?v=15">
+  <script defer src="../assets/js/common.js?v=15"></script>
+  <script defer src="../assets/js/motion-v11.js?v=15"></script>
+  <script defer src="../assets/js/oa.js?v=15"></script>
 </head>
 <body class="site-oa oa-eastfield-2016">
   <div class="oa">
@@ -41,11 +41,11 @@
         <form id="evidenceForm">
           <label>三源先后顺序<select id="evidenceFirst"><option value="">-- 选择时间链 --</option><option value="student-cancel-injury">学生进入 → 巡查取消 → 人员受伤</option><option value="injury-student-cancel">人员受伤 → 学生进入 → 巡查取消</option><option value="cancel-injury-student">巡查取消 → 人员受伤 → 学生进入</option></select></label>
           <label>记录没有证明<select id="evidenceCause"><option value="">-- 选择越界推断 --</option><option value="wish-caused-injury">许愿或柳树导致值班人员摔伤</option><option value="injury-before-entry">值班人员受伤早于学生进入</option><option value="cancel-after-entry">巡查取消晚于学生进入</option></select></label>
-          <label>21:51 所处状态<select id="evidenceAfter"><option value="">-- 选择交叉结论 --</option><option value="cancel-first">巡查已经正式取消，学生随后进入</option><option value="gap-before-cancel">人员已受伤，取消指令尚未下达</option><option value="normal-patrol">巡查人员仍按原计划在场</option></select></label>
+          <label>设备误差能否颠倒顺序<select id="evidenceClock"><option value="">-- 核对校准记录 --</option><option value="no-gap-large">不能；约7分钟远大于3秒漂移</option><option value="uncalibrated">无法判断；设备当天没有校准</option><option value="reverse-order">可以；纸质记录没有精确到秒</option></select></label>
           <button type="submit" id="evidenceSubmit" disabled>校验时间链</button>
         </form>
         <p class="evidence-feedback" id="evidenceFeedback" aria-live="polite">请先依次打开上方三份来源。</p>
-        <div class="server-path-reveal" id="serverPathReveal" hidden><span>relationship verified / attachment index:</span> <a href="server-path.html">static path inventory / 2017-01-09</a></div>
+        <div class="server-path-reveal" id="serverPathReveal" hidden><div class="evidence-receipt"><span>ESTABLISHED　21:46 injury &lt; 21:51 entry &lt; 21:58 cancel</span><span>NOT ESTABLISHED　wish / tree → injury</span><span>CLOCK CHECK　drift &lt; 3s; order unchanged</span></div><span>relationship verified / attachment index:</span> <a href="server-path.html">static path inventory / 2017-01-09</a></div>
       </section>
     </main>
   </div>

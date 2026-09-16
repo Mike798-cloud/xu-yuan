@@ -12,6 +12,7 @@
   const replay=document.getElementById('replayEnding');
   const page=document.getElementById('willowPage');
   const residue=document.getElementById('residue');
+  const endingWish=document.getElementById('endingWish');
   const label=document.getElementById('treeCarouselLabel');
   const slides=[...document.querySelectorAll('.tree-slide')];
   const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -46,7 +47,7 @@
     story.classList.remove('replay');
     void story.offsetWidth;
     story.classList.add('replay');
-    thanksTimer=window.setTimeout(showThanks,reduced?700:6500);
+    thanksTimer=window.setTimeout(showThanks,reduced?1200:11000);
   }
   function submitWish(){
     if(submitted)return;
@@ -56,6 +57,7 @@
       return;
     }
     submitted=true;
+    if(endingWish)endingWish.textContent=ta.value.trim();
     stopCarousel();
     num.textContent='18342';
     btn.disabled=true;
@@ -67,7 +69,7 @@
     window.setTimeout(()=>{
       blackout.classList.add('show');
       ending.classList.add('show');
-      thanksTimer=window.setTimeout(showThanks,reduced?700:6500);
+      thanksTimer=window.setTimeout(showThanks,reduced?1200:11000);
     },reduced?260:1550);
   }
 

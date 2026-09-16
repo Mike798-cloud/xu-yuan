@@ -290,7 +290,8 @@
     ['隔壁路过','先别沉，等楼主。']
   ];
   const title=document.title;
-  const target=targetThreePages.has(title)?13:10;
+  const isKeyThread=targetThreePages.has(title);
+  const minimumPosts=isKeyThread?13:10;
   const rows=[...(replies[title]||[])];
   let existing=thread.querySelectorAll('.post').length;
   const lastFloor=Math.max(0,...[...thread.querySelectorAll('.post-meta')].map(meta=>{
@@ -312,23 +313,39 @@
     'qiming_7':'2014级 · 社团联合会','hanger':'2012级 · 计算机学院','raindrop':'2013级 · 校报摄影部',
     'stage_prop':'2012级 · 舞台组','stagehand':'2013级 · 舞台组','lin11':'2013级',
     'nightboat':'2012级 · 广播站','fm_89':'广播站值班','体育部小刘':'2014级 · 体育部',
-    '北辰剧社':'社团认证账号','维修值班小陈':'后勤维修','校报排版人':'校报编辑部',
+    '北辰剧社':'社团账号','维修值班小陈':'后勤维修','校报排版人':'校报编辑部',
     '旧体育馆门卫':'场馆值班','二教管理员':'教学楼值班','图书馆值班':'图书馆值班',
+    '路过教务处':'2011级','复习了吗':'2012级','同寝不想说':'2012级','泡面不要汤':'2014级',
+    '不想叠被子':'2015级','耳机坏三次':'2014级','一颗青提':'2015级','坐最后一排':'2016级',
+    'runrun':'2015级','伞又没了':'2016级','西门口':'2015级','木头':'2015级',
+    '317今天停水吗':'2014级','六月毕业':'2013级','do_not_sleep':'2014级','ddl今晚':'2016级',
     '匿名用户03':'游客','匿名用户09':'游客','匿名用户12':'游客','匿名用户17':'游客'
   };
-  const profileFor=(name,index)=>memberProfiles[name]||(['2015级','2016级','旧站注册用户'][index%3]);
+  const observedProfiles=new Map();
+  thread.querySelectorAll('.post-user').forEach(user=>{
+    const name=user.querySelector('strong')?.textContent.trim();
+    const profile=[...user.children].find(node=>node.tagName==='DIV'&&!node.classList.contains('avatar')&&!node.classList.contains('websign'));
+    if(name&&profile)observedProfiles.set(name,profile.textContent.trim());
+  });
+  const profileFor=name=>{
+    if(observedProfiles.has(name))return observedProfiles.get(name);
+    if(memberProfiles[name])return memberProfiles[name];
+    const signature=[...name].reduce((sum,char)=>sum+char.codePointAt(0),0);
+    return ['2014级','2015级','2016级','旧站注册用户'][signature%4];
+  };
   let cursor=0;
-  while(existing+rows.length<target){
+  while(existing+rows.length<minimumPosts){
     rows.push(fallback[cursor%fallback.length]);
     cursor++;
   }
+  const target=Math.min(isKeyThread?18:15,existing+rows.length);
   rows.slice(0,Math.max(0,target-existing)).forEach((row,index)=>{
     const section=document.createElement('section');
     section.className='post ambient-post';
     const restoredFloor=lastFloor+index+1;
     section.innerHTML='<div class="post-user"><strong></strong><div class="avatar"></div><div class="member-profile"></div></div><div class="post-body"><div class="post-meta"></div><p></p></div>';
     section.querySelector('strong').textContent=row[0];
-    section.querySelector('.member-profile').textContent=profileFor(row[0],index);
+    section.querySelector('.member-profile').textContent=profileFor(row[0]);
     section.querySelector('.post-meta').textContent=formatTime(replyBase+minuteSteps[index%minuteSteps.length]*60000)+'　'+restoredFloor+'#';
     section.querySelector('p').textContent=row[1];
     thread.appendChild(section);
@@ -372,7 +389,7 @@
   });
 
   const posts=[...thread.querySelectorAll('.post')];
-  const pageSize=5;
+  const pageSize=(posts.length>15||posts.length<13)?6:5;
   const pageCount=Math.ceil(posts.length/pageSize);
   let pager=document.querySelector('.pagination');
   if(!pager){

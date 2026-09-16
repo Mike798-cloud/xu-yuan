@@ -98,6 +98,21 @@
     void tickerText.offsetWidth;
     tickerText.classList.add('is-entering');
   });
+  document.addEventListener('xu:evidence-verified',event=>{
+    if(!event.detail?.message)return;
+    narrativeShifted=true;
+    tickerText.textContent=event.detail.message;
+    ticker.className='legacy-ticker narrative-drift';
+    tickerText.classList.remove('is-entering');
+    void tickerText.offsetWidth;
+    tickerText.classList.add('is-entering');
+    const lastCard=cards.lastElementChild;
+    if(lastCard&&config.kind==='records'){
+      lastCard.querySelector('b').textContent='IDX-045';
+      lastCard.querySelector('span').textContent='owner: null';
+      lastCard.querySelector('small').textContent='UNOWNED';
+    }
+  });
   if(!reduced){
     let lineTimer=null;
     let cardTimer=null;
