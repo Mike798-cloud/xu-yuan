@@ -23,3 +23,6 @@ body.site-houqin{background:
 .site-houqin .hq-body{flex:1}
 body.hq-map-page{width:auto;aspect-ratio:auto}
 @media(max-width:680px){.site-houqin .hq{min-height:100vh}}
+
+/* V13 — dense workstation, reduced outer void. */
+@media(min-width:900px){.hq{width:1160px}.site-houqin .hq{margin-left:max(14px,calc((100vw - 1260px)/2))}}

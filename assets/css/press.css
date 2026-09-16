@@ -20,3 +20,6 @@ body.site-press{background:
 .site-press .press{min-height:calc(100vh - 32px);display:flex;flex-direction:column}
 .site-press .press-body{flex:1}
 @media(max-width:680px){.site-press .press{min-height:100vh}}
+
+/* V13 — broader archive sheet on desktop. */
+@media(min-width:900px){.press{width:1120px}}

@@ -15,7 +15,7 @@
   const label=document.getElementById('treeCarouselLabel');
   const slides=[...document.querySelectorAll('.tree-slide')];
   const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const captions=['FRAME 01 / 东操场北侧 / 21:46','FRAME 02 / HQ-2014-0524 / 折枝复查','FRAME 03 / YL-E-017 / owner null'];
+  const captions=['FRAME 01 / EAST FIELD / SOURCE LOST','FRAME 02 / ATTACHMENT / PARTIAL','FRAME 03 / OWNER / NULL'];
   let current=0;
   let carousel=null;
   let thanksTimer=null;
@@ -33,15 +33,6 @@
   document.addEventListener('visibilitychange',()=>{document.hidden?stopCarousel():startCarousel();});
   startCarousel();
 
-  function saveCompletion(){
-    try{
-      const key='xuYuanInvestigationV12';
-      const state=JSON.parse(localStorage.getItem(key)||'{}');
-      state.seen={...(state.seen||{}),orphan:(state.seen&&state.seen.orphan)||Date.now()};
-      state.finished=true;
-      localStorage.setItem(key,JSON.stringify(state));
-    }catch(_error){}
-  }
   function showThanks(){
     if(thanksTimer)window.clearTimeout(thanksTimer);
     story.classList.add('is-past');
@@ -76,7 +67,6 @@
     window.setTimeout(()=>{
       blackout.classList.add('show');
       ending.classList.add('show');
-      saveCompletion();
       thanksTimer=window.setTimeout(showThanks,reduced?700:6500);
     },reduced?260:1550);
   }

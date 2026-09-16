@@ -44,3 +44,7 @@ body.site-minglan:after{content:"柳";position:fixed;right:1vw;top:9vh;color:#18
 .site-minglan .ml-head .inner:before,.site-minglan .ml-head .inner:after{z-index:1}
 .site-minglan .ml-brand,.site-minglan .ml-head .small{z-index:2}
 @media(max-width:720px){.site-minglan .ml-body{min-height:calc(100vh - 196px)}.site-minglan .legacy-ticker{max-width:100%;width:100%;border-left:0;border-right:0}}
+
+/* V13 — broader desktop sheet and a single breadcrumb label. */
+.crumb:before{content:""}
+@media(min-width:900px){.ml-top .inner,.ml-head .inner,.ml-nav .inner,.ml-body,.ml-marquee,.site-minglan .legacy-ticker{width:1160px}}

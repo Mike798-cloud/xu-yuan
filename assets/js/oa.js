@@ -44,10 +44,7 @@
   const sources=[...document.querySelectorAll('[data-oa-source]')];
   const selected=document.getElementById('selectedRecord');
   const strip=document.querySelector('.oa-tabs');
-  const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const viewed=new Set();
-  let current=0;
-  let timer=null;
 
   const gate=document.getElementById('evidenceForm');
   const submit=document.getElementById('evidenceSubmit');
@@ -60,12 +57,10 @@
       badge.textContent=(badge.dataset.sourceSeen==='paper'?'BA-P27':badge.dataset.sourceSeen==='device'?'CAM-E04':'DISP-3')+(seen?' 已核':' 未核');
     });
     if(submit)submit.disabled=viewed.size<3;
-    if(feedback&&viewed.size<3)feedback.textContent='还需查看 '+(3-viewed.size)+' 份来源；记录正文不会自动合并。';
+    if(feedback&&viewed.size<3)feedback.textContent='还有 '+(3-viewed.size)+' 份记录未打开。';
   }
-  const emitEvidence=key=>window.dispatchEvent(new CustomEvent('xu-evidence',{detail:key}));
   const open=key=>{
     const button=tabs.find(tab=>tab.dataset.oaTab===key)||tabs[0];
-    current=tabs.indexOf(button);
     tabs.forEach(tab=>{
       const active=tab===button;
       tab.classList.toggle('active',active);
@@ -77,34 +72,22 @@
       source.classList.toggle('active',active);
       source.hidden=!active;
     });
-    if(strip)strip.style.setProperty('--oa-slide',String(current));
+    if(strip)strip.style.setProperty('--oa-slide',String(tabs.indexOf(button)));
     if(selected)selected.textContent=button.dataset.recordId||'';
     viewed.add(button.dataset.oaTab);
-    emitEvidence(button.dataset.oaTab);
     updateViewed();
     history.replaceState(null,'','#'+button.dataset.oaTab);
   };
-  const start=()=>{
-    if(reduced||tabs.length<2)return;
-    if(timer)window.clearInterval(timer);
-    timer=window.setInterval(()=>open(tabs[(current+1)%tabs.length].dataset.oaTab),5600);
-  };
-  tabs.forEach(tab=>tab.addEventListener('click',()=>{open(tab.dataset.oaTab);start();}));
-  document.addEventListener('visibilitychange',()=>{
-    if(document.hidden&&timer){window.clearInterval(timer);timer=null;}
-    else if(!document.hidden)start();
-  });
+  tabs.forEach(tab=>tab.addEventListener('click',()=>open(tab.dataset.oaTab)));
   const hash=location.hash.replace('#','');
   open(hash&&tabs.some(tab=>tab.dataset.oaTab===hash)?hash:tabs[0].dataset.oaTab);
-  start();
 
   let verified=false;
-  try{verified=localStorage.getItem('xuYuanEvidenceGateV12')==='verified';}catch(_error){}
+  try{verified=localStorage.getItem('xuYuanEvidenceGateV13')==='verified';}catch(_error){}
   function showVerified(){
     if(reveal)reveal.hidden=false;
-    if(feedback){feedback.classList.add('success');feedback.textContent='校验通过：21:46受伤 → 值班人员送医 → 21:51学生进入 → 21:58巡查取消。';}
-    if(submit){submit.disabled=false;submit.textContent='时间链已校验';}
-    emitEvidence('verified');
+    if(feedback){feedback.classList.add('success');feedback.textContent='校验通过。三份记录的先后关系一致。';}
+    if(submit){submit.disabled=false;submit.textContent='校验完成';}
   }
   if(verified)showVerified();
   if(gate)gate.addEventListener('submit',event=>{
@@ -113,11 +96,11 @@
     const first=document.getElementById('evidenceFirst').value;
     const cause=document.getElementById('evidenceCause').value;
     const after=document.getElementById('evidenceAfter').value;
-    if(first!=='injury')feedback.textContent='未通过：请回看 BA-P27 的 21:46，再与设备记录 21:51 比较。';
-    else if(cause!=='injury')feedback.textContent='未通过：请回看 DISP-3 的“原因字段”，不要用论坛传言代替调度记录。';
-    else if(after!=='student')feedback.textContent='未通过：请回看 CAM-E04 的 21:51 与 21:52 缓存引用。';
+    if(first!=='injury')feedback.textContent='未通过：三份记录中，最早发生的事件选错了。';
+    else if(cause!=='injury')feedback.textContent='未通过：请重新核对调度记录里的取消原因。';
+    else if(after!=='student')feedback.textContent='未通过：请重新比较设备记录与纸质记录。';
     else{
-      try{localStorage.setItem('xuYuanEvidenceGateV12','verified');}catch(_error){}
+      try{localStorage.setItem('xuYuanEvidenceGateV13','verified');}catch(_error){}
       showVerified();
     }
   });
