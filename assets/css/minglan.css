@@ -109,3 +109,25 @@ body.site-minglan:before,body.site-minglan:after{content:none!important;display:
 @keyframes mlPhotoBreath{from{transform:scale(1.01);filter:sepia(.08) contrast(1.03)}to{transform:scale(1.045);filter:sepia(.18) contrast(1.10) brightness(.92)}}
 @media(max-width:680px){.ml-academic-ledger>div{grid-template-columns:1fr;gap:2px}.ml-notice-excerpts,.ml-academic-ledger,.ml-security-log,.ml-photo-register,.ml-news-clipping{padding:9px}}
 @media(prefers-reduced-motion:reduce){.site-minglan .ml-photo img,.campus-photo-map img{animation:none}}
+
+
+/* V22 — the portal's hero image behaves like an archival photograph rather
+   than a decorative website banner.  No progress-dependent changes. */
+.minglan-index .ml-photo{position:relative;background:#0e0e0d;border-color:#6f5f50;box-shadow:5px 7px 0 rgba(35,24,18,.18),0 18px 38px rgba(0,0,0,.22)}
+.minglan-index .ml-photo:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.02) 35%,rgba(7,5,4,.64) 100%)}
+.ml-photo-meta{position:absolute;z-index:2;left:12px;right:12px;bottom:10px;color:#e6d5b9;font:9px/1.55 Consolas,monospace;letter-spacing:1px}.ml-photo-meta b,.ml-photo-meta span{display:block}.ml-photo-meta b{color:#d29d78;font-weight:400}.ml-photo-meta span{margin-top:2px;color:#d7cbb9}
+.minglan-index .ml-photo img{animation-duration:24s!important;filter:sepia(.12) saturate(.42) contrast(1.17) brightness(.74)!important}.minglan-index .ml-home-grid>div:first-child{padding-right:7px}.minglan-index .ml-list li:first-child{background:rgba(105,37,31,.07)}
+.site-minglan .legacy-ticker:after{opacity:.35}.site-minglan .motion-portal-echo>div{animation-duration:46s}
+@media(max-width:720px){.ml-photo-meta{left:8px;right:8px;bottom:7px;font-size:8px}.minglan-index .ml-photo{min-height:190px}.minglan-index .ml-photo img{min-height:190px;object-fit:cover}}
+
+/* V22.1 — the home page gives the photograph enough physical weight to set the
+   mood on first view.  Earlier oversized text silhouettes are removed so the
+   real photograph, not a drawn/typographic ornament, carries the image. */
+body.site-minglan:before,body.site-minglan:after{content:none!important;display:none!important}
+.minglan-index .ml-home-grid{grid-template-columns:minmax(0,1fr) 350px;gap:12px}
+.minglan-index .ml-photo{padding:3px;min-height:246px}
+.minglan-index .ml-photo img{height:240px!important;object-fit:cover;object-position:center 48%;filter:grayscale(.34) sepia(.08) saturate(.38) contrast(1.22) brightness(.62)!important}
+.minglan-index .ml-photo:before{content:"";position:absolute;z-index:1;inset:3px;pointer-events:none;box-shadow:inset 0 0 70px rgba(0,0,0,.5),inset 0 -78px 74px rgba(0,0,0,.4)}
+.minglan-index .ml-photo+ p{margin:6px 0 10px;text-align:right;color:#796a59}
+@media(max-width:900px){.minglan-index .ml-home-grid{grid-template-columns:minmax(0,1fr) 300px}.minglan-index .ml-photo{min-height:216px}.minglan-index .ml-photo img{height:210px!important}}
+@media(max-width:720px){.minglan-index .ml-home-grid{grid-template-columns:1fr}.minglan-index .ml-photo{min-height:220px}.minglan-index .ml-photo img{height:220px!important}}

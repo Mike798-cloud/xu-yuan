@@ -126,3 +126,17 @@ body.bbs-key-thread .cache-gap-marker b{color:#b97874}
 body.bbs-key-thread .thread-source-note{border-color:#473d38;background:#0e1112;color:#988d82}
 body.bbs-key-thread .thread-source-note a{color:#c59a72}
 body.bbs-key-thread .missing-floor .post-user,body.bbs-key-thread .missing-floor .post-body{background:#191919!important;color:#6f6f6f}
+
+
+/* V22 — recovered key threads arrive like an archive being opened, not like a
+   generic glitch effect.  The content is all present from the first view. */
+body.bbs-key-thread .motion-bbs-stage{height:178px;box-shadow:0 14px 44px rgba(0,0,0,.44)}
+body.bbs-key-thread .bbs-stage-frame{animation-duration:26s!important;filter:saturate(.58) contrast(1.25) brightness(.58)}
+body.bbs-key-thread .motion-bbs-stage:before{content:"RECOVERED SNAPSHOT";position:absolute;z-index:3;left:14px;top:12px;color:rgba(226,202,174,.68);font:8px/1 Consolas,monospace;letter-spacing:2px}
+body.bbs-key-thread .post{opacity:0;transform:translateY(5px)}
+body.bbs-key-thread.motion-ready .post{animation:bbsRecordRecover .6s ease forwards}
+body.bbs-key-thread.motion-ready .post:nth-child(2){animation-delay:.06s}body.bbs-key-thread.motion-ready .post:nth-child(3){animation-delay:.12s}body.bbs-key-thread.motion-ready .post:nth-child(4){animation-delay:.18s}body.bbs-key-thread.motion-ready .post:nth-child(5){animation-delay:.24s}body.bbs-key-thread.motion-ready .post:nth-child(n+6){animation-delay:.30s}
+@keyframes bbsRecordRecover{to{opacity:1;transform:none}}
+body.bbs-key-thread .motion-bbs-echo>div{animation-duration:48s}
+@media(max-width:720px){body.bbs-key-thread .motion-bbs-stage{height:128px}}
+@media(prefers-reduced-motion:reduce){body.bbs-key-thread .post{opacity:1;transform:none}body.bbs-key-thread.motion-ready .post{animation:none}}

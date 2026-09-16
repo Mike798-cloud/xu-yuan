@@ -50,3 +50,15 @@ body.site-press{background:linear-gradient(180deg,#151311,#050505)!important}
 .press-archive-photo img{animation:pressPhotoHold 20s ease-in-out infinite alternate;transform-origin:50% 45%}@keyframes pressPhotoHold{from{transform:scale(1.01);filter:grayscale(.2) sepia(.14) contrast(1.04)}to{transform:scale(1.055) translateX(-.8%);filter:grayscale(.34) sepia(.22) contrast(1.13) brightness(.91)}}
 @media(max-width:680px){.press-match-options{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.press-archive-photo img{animation:none}}
+
+
+/* V22 — newspaper motion comes from the photograph / scanning process rather
+   than from a universal ticker. */
+.press-archive-photo{min-height:250px;box-shadow:5px 7px 0 rgba(24,19,15,.24),0 18px 42px rgba(0,0,0,.18)}
+.press-archive-photo img{height:250px!important;animation-duration:28s!important;filter:grayscale(.36) sepia(.16) saturate(.52) contrast(1.18) brightness(.70)!important}
+.press-archive-photo:before{content:"";position:absolute;z-index:2;top:0;bottom:0;width:17%;left:-25%;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(250,233,192,.11),transparent);animation:pressExposurePass 24s ease-in-out infinite}
+@keyframes pressExposurePass{0%,35%{left:-25%;opacity:0}45%{opacity:.8}70%{left:108%;opacity:.28}100%{left:108%;opacity:0}}
+.press-tree-care .press-archive-photo figcaption,.press-radio-schedule .press-archive-photo figcaption,.press-scholarship .press-archive-photo figcaption{background:rgba(19,16,13,.9)}
+.site-press .motion-press-echo>div{animation-duration:54s}
+@media(max-width:680px){.press-archive-photo{min-height:190px}.press-archive-photo img{height:190px!important}}
+@media(prefers-reduced-motion:reduce){.press-archive-photo:before{animation:none}}

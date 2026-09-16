@@ -133,6 +133,14 @@
     rail.className='motion-portal-rail';
     rail.innerHTML='<span>校园要闻</span><i></i><span>通知公告</span><i></i><span>东区绿化 / YL-E-017</span><b>2017 / 04</b>';
     ticker.insertAdjacentElement('afterend',rail);
+    if(body.classList.contains('minglan-index')){
+      const photo=document.querySelector('.ml-photo');
+      if(photo&&!photo.querySelector('.ml-photo-meta')){
+        const meta=document.createElement('div');meta.className='ml-photo-meta';
+        meta.innerHTML='<b>PHOTO ARCHIVE / MLU-2017-SPR</b><span>东区资料图 · 原始拍摄人未登记</span>';
+        photo.appendChild(meta);
+      }
+    }
     return rail;
   }
 
@@ -187,7 +195,12 @@
     evidence.className='motion-oa-evidence';
     evidence.setAttribute('aria-label','历史节点来源摘要');
     evidence.innerHTML='<figure><img alt="东操场夜间资料照片" src="'+root+'scene_oa_eastfield.jpg"></figure><div><b>LEGACY SOURCE SET</b><span>paper / device / dispatch</span><span>timestamps preserved separately</span><span>unowned index retained</span></div>';
-    ticker.insertAdjacentElement('afterend',evidence); return evidence;
+    ticker.insertAdjacentElement('afterend',evidence);
+    const timeline=document.createElement('section');
+    timeline.className='motion-oa-timeline';timeline.setAttribute('aria-label','记录时间轴');
+    timeline.innerHTML='<div><b>21:45:31</b><span>unowned index</span></div><div><b>21:46</b><span>injury record</span></div><div><b>21:51</b><span>entry</span></div><div><b>21:52</b><span>cache</span></div><div><b>21:58</b><span>cancel</span></div>';
+    evidence.insertAdjacentElement('afterend',timeline);
+    return timeline;
   }
   function buildEntry(){
     const recovery=document.createElement('section');
@@ -201,22 +214,25 @@
   const builders={portal:buildPortal,bbs:buildBbs,press:buildPress,houqin:buildHouqin,oa:buildOa,entry:buildEntry};
   builders[config.kind]?.();
 
-  // Fixed, page-local text crawl: it never depends on player progress.  It gives
-  // every page a moving layer built from that page's own record rather than a
-  // generic horror slogan.
-  const echo=document.createElement('div');
-  echo.className='motion-echo-ribbon motion-'+config.kind+'-echo';
-  echo.setAttribute('aria-hidden','true');
-  const track=document.createElement('div');
-  const title=(document.title||'').replace(/\s+-\s+明岚大学$/,'').replace(/\s+-\s+校报档案$/,'');
-  [title,primaryLine,config.lines[0]].filter(Boolean).forEach(text=>{
-    const span=document.createElement('span'); span.textContent=text; track.appendChild(span);
-  });
-  // duplicate the text track only for the visual loop; content remains fixed.
-  [...track.children].forEach(node=>track.appendChild(node.cloneNode(true)));
-  echo.appendChild(track);
-  const firstStage=ticker.nextElementSibling;
-  if(firstStage)firstStage.insertAdjacentElement('afterend',echo); else ticker.insertAdjacentElement('afterend',echo);
+  // Fixed, page-local movement is deliberately selective.  The archive should
+  // not feel like one universal template: portal, recovered BBS threads and a
+  // handful of record pages move; OA becomes quieter as evidence gets harder.
+  const echoPages=['entry-cache','minglan-index','minglan-notice-east','bbs-key-thread','press-tree-care','press-radio-schedule','press-scholarship','hq-index','hq-workorder-2014-0524'];
+  const useEcho=echoPages.some(name=>body.classList.contains(name));
+  if(useEcho){
+    const echo=document.createElement('div');
+    echo.className='motion-echo-ribbon motion-'+config.kind+'-echo';
+    echo.setAttribute('aria-hidden','true');
+    const track=document.createElement('div');
+    const title=(document.title||'').replace(/\s+-\s+明岚大学$/,'').replace(/\s+-\s+校报档案$/,'');
+    [title,primaryLine,config.lines[0]].filter(Boolean).forEach(text=>{
+      const span=document.createElement('span'); span.textContent=text; track.appendChild(span);
+    });
+    [...track.children].forEach(node=>track.appendChild(node.cloneNode(true)));
+    echo.appendChild(track);
+    const firstStage=ticker.nextElementSibling;
+    if(firstStage)firstStage.insertAdjacentElement('afterend',echo); else ticker.insertAdjacentElement('afterend',echo);
+  }
 
   let line=0;
   function renderLine(){
@@ -228,7 +244,8 @@
   renderLine();
   if(!reduced){
     let timer=null;
-    const start=()=>{ if(timer||document.hidden)return; timer=window.setInterval(renderLine,6800); };
+    const shouldCycle=!body.classList.contains('site-oa');
+    const start=()=>{ if(!shouldCycle||timer||document.hidden)return; timer=window.setInterval(renderLine,11800); };
     const stop=()=>{ if(timer)window.clearInterval(timer); timer=null; };
     document.addEventListener('visibilitychange',()=>{document.hidden?stop():start();}); start();
   }

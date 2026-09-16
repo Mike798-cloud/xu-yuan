@@ -7,3 +7,10 @@
 body.wish-submitted .willow-wrap{filter:brightness(.48) saturate(.7);transition:filter .8s ease}
 @media(max-width:760px){.backdrop-photo{display:none}.willow-wrap{width:100%;padding:0 0 32px}.willow-head{border-left:0;border-right:0;display:block}.willow-caption{margin-top:4px;text-align:left}.willow-hero{grid-template-columns:1fr;margin-top:0;border-left:0;border-right:0}.tree-frame{min-height:280px}.willow-hero-copy{border-left:0;border-top:1px solid rgba(112,56,59,.48);padding:25px 18px}.willow-hero-copy h1{font-size:27px}.wish-panel{margin-top:0;border-left:0;border-right:0;padding:21px 16px}.wish-row{display:block}.wish-row span{display:block;margin-top:4px}.residue{display:block;margin:9px 0 0}.ending-shell{width:calc(100% - 26px);padding:44px 0 54px}.ending-shell h2{font-size:28px}.ending-copy{padding:18px 16px}.creator-thanks{grid-template-columns:1fr}.creator-card{width:min(300px,100%);margin:0 auto}}
 @media(prefers-reduced-motion:reduce){.tree-slide,.ending-overlay,.creator-thanks,body.wish-submitted .willow-wrap{transition:none}}
+
+
+/* V22 — once the wish is submitted, motion and saturation deliberately fall
+   away so the final blessing feels like returning to the real screen. */
+body.wish-submitted .willow-backdrop{transition:filter 1.4s ease,opacity 1.4s ease;filter:grayscale(.72) saturate(.24) contrast(.92);opacity:.44}
+body.wish-submitted .tree-slide{transition-duration:1.4s!important}.ending-overlay.show .ending-photo{animation:endingStillness 2.2s ease both}@keyframes endingStillness{from{opacity:.7;filter:grayscale(.22) saturate(.48) contrast(1.18)}to{opacity:.42;filter:grayscale(.62) saturate(.28) contrast(.96)}}
+@media(prefers-reduced-motion:reduce){.ending-overlay.show .ending-photo{animation:none}}

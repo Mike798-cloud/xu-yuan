@@ -51,3 +51,13 @@ body.site-houqin{background:linear-gradient(180deg,#07100c,#020403)!important;pa
 .hq-cause-list,.hq-migrate-receipt{margin:12px 0 0;padding:9px 11px;border:1px solid #688071;background:#eef2ea;color:#33453a;line-height:1.75}.hq-cause-list p,.hq-migrate-receipt p{margin:0;padding:6px 0;border-top:1px dotted #8ca092}.hq-cause-list p:first-child,.hq-migrate-receipt p:first-of-type{border-top:0}.hq-cause-list b,.hq-migrate-receipt>b{font-weight:400;color:#1f5b3a}.hq-migrate-receipt>b{font-family:Consolas,monospace;letter-spacing:.5px}
 .hq-photo-map img,.wo-photo img,.motion-hq-evidence img{animation:hqPhotoDrift 19s ease-in-out infinite alternate;transform-origin:50% 50%}@keyframes hqPhotoDrift{from{transform:scale(1.01)}to{transform:scale(1.05) translateY(-.6%)}}
 @media(prefers-reduced-motion:reduce){.hq-photo-map img,.wo-photo img,.motion-hq-evidence img{animation:none}}
+
+
+/* V22 — evidence pages move only where the evidence itself is being looked at. */
+.hq-workorder-2014-0524 .wo-photo{position:relative;overflow:hidden;margin-top:12px;background:#0f1713;box-shadow:0 14px 34px rgba(0,0,0,.22)}
+.hq-workorder-2014-0524 .wo-photo img{height:300px;animation:hqEvidencePush 24s ease-in-out infinite alternate!important;transform-origin:54% 66%;filter:grayscale(.22) saturate(.46) contrast(1.24) brightness(.62)}
+.hq-workorder-2014-0524 .wo-photo:after{content:"IMG_0524_0719 / source copy";position:absolute;left:10px;bottom:8px;color:rgba(221,230,213,.74);font:8px/1.4 Consolas,monospace;letter-spacing:1px;background:rgba(8,13,10,.68);padding:4px 6px}
+@keyframes hqEvidencePush{from{transform:scale(1.01)}to{transform:scale(1.085) translate(-1.1%,-1.5%)}}
+.site-houqin .motion-houqin-echo>div{animation-duration:50s}
+@media(max-width:680px){.hq-workorder-2014-0524 .wo-photo img{height:220px}}
+@media(prefers-reduced-motion:reduce){.hq-workorder-2014-0524 .wo-photo img{animation:none!important}}
