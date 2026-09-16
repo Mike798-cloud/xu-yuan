@@ -5,7 +5,6 @@
  const photoMap={
   'press-tree-care':['scene_press_tree.jpg','资料室同卷底片 / 东区绿化 / 编号未写'],
   'press-radio-schedule':['scene_press_radio.jpg','广播资料夹附图 / 东操场夜间 / 非节目截图'],
-  'press-scholarship':['scene_press_scholarship.jpg','同卷校园资料图 / 2014 秋季'],
   'press-profile-club':['scene_press_club.jpg','社团资料夹附图 / 旧体育馆东侧'],
   'press-sports-special':['scene_press_sports.jpg','摄影部未编号底片 / 跑道东侧'],
   'press-corrections':['scene_press_corrections.jpg','资料室整理照 / 原稿与附件分开归档']
@@ -46,6 +45,25 @@
    briefs.appendChild(item);
   });
   article.appendChild(section);
+ }
+
+ const match=document.getElementById('photoIndexCheck');
+ if(match){
+  const feedback=document.getElementById('pressMatchFeedback');
+  const result=document.getElementById('pressMatchResult');
+  const options=[...match.querySelectorAll('[data-press-match]')];
+  options.forEach(option=>option.addEventListener('click',()=>{
+   options.forEach(item=>item.classList.remove('is-picked','is-wrong'));
+   option.classList.add('is-picked');
+   if(option.dataset.pressMatch==='a'){
+    if(feedback)feedback.textContent='位置、时间和人数三项都能对上旧帖里的描述。';
+    if(result)result.hidden=false;
+   }else{
+    option.classList.add('is-wrong');
+    if(feedback)feedback.textContent='至少有一项登记字段和旧帖里的描述对不上。';
+    if(result)result.hidden=true;
+   }
+  }));
  }
  if(!rows.length)return;
  const params=new URLSearchParams(location.search);const py=params.get('year'),pt=params.get('type');

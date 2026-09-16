@@ -46,3 +46,8 @@ body.site-houqin{background:linear-gradient(180deg,#07100c,#020403)!important;pa
 .migration-sample strong{display:block;color:#5f211e;margin-bottom:3px}
 .migration-sample span{display:block;border-bottom:1px dotted rgba(81,69,52,.28)}
 .migration-sample small{display:block;margin-top:6px;color:#6f675b}
+
+/* V21 — ordinary work orders help establish what a complete record looks like. */
+.hq-cause-list,.hq-migrate-receipt{margin:12px 0 0;padding:9px 11px;border:1px solid #688071;background:#eef2ea;color:#33453a;line-height:1.75}.hq-cause-list p,.hq-migrate-receipt p{margin:0;padding:6px 0;border-top:1px dotted #8ca092}.hq-cause-list p:first-child,.hq-migrate-receipt p:first-of-type{border-top:0}.hq-cause-list b,.hq-migrate-receipt>b{font-weight:400;color:#1f5b3a}.hq-migrate-receipt>b{font-family:Consolas,monospace;letter-spacing:.5px}
+.hq-photo-map img,.wo-photo img,.motion-hq-evidence img{animation:hqPhotoDrift 19s ease-in-out infinite alternate;transform-origin:50% 50%}@keyframes hqPhotoDrift{from{transform:scale(1.01)}to{transform:scale(1.05) translateY(-.6%)}}
+@media(prefers-reduced-motion:reduce){.hq-photo-map img,.wo-photo img,.motion-hq-evidence img{animation:none}}

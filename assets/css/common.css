@@ -25,3 +25,19 @@
 @keyframes ticker-enter{from{opacity:0;transform:translateX(24px);filter:blur(1px)}to{opacity:1;transform:none;filter:none}}@keyframes ticker-scan{0%{transform:translateX(-120%)}35%,100%{transform:translateX(120%)}}@keyframes cache-arrive{from{opacity:.15;transform:translateY(5px) rotate(-.08deg)}to{opacity:1;transform:rotate(-.08deg)}}
 @media(max-width:720px){html{font-size:13px}.plain-table{display:block;overflow-x:auto;white-space:nowrap}.desktop-only{display:none!important}.legacy-ticker{height:21px;font-size:10px;line-height:19px}.motion-portal-rail{max-width:100%;width:100%;border-left:0;border-right:0}.motion-bbs-console{grid-template-columns:1fr 1fr}.motion-bbs-console span:nth-child(2),.motion-bbs-console span:nth-child(3){display:none}.motion-bbs-stage{height:108px}.motion-bbs-stage .bbs-stage-copy{width:82vw;padding:9px 11px;font-size:12px;letter-spacing:1px}.motion-bbs-stage .bbs-stage-copy small{font-size:7px}.motion-entry-recovery{grid-template-columns:104px 1fr;height:68px}.recovery-copy{grid-template-columns:1fr 1fr;padding:0 8px}.recovery-copy span:nth-of-type(1),.recovery-copy span:nth-of-type(2){display:none}.motion-hq-evidence{height:76px;grid-template-columns:120px 1fr}.motion-hq-evidence>div{grid-template-columns:1fr 1fr;padding:0 8px}.motion-hq-evidence span:nth-of-type(2),.motion-hq-evidence span:nth-of-type(3){display:none}.motion-oa-evidence{height:68px;grid-template-columns:105px 1fr}.motion-oa-evidence>div{grid-template-columns:1fr;padding:0 8px}.motion-oa-evidence span{display:none}}
 @media(prefers-reduced-motion:reduce){.legacy-ticker:after,.legacy-ticker-text.is-entering,.motion-ready.entry-cache .capture{animation:none}}
+
+/* V21 — fixed, page-local motion.  The crawl uses text already present on the
+   page and is never tied to progress, revisits or stored state. */
+.motion-echo-ribbon{position:relative;z-index:3;height:27px;overflow:hidden;border-bottom:1px solid rgba(0,0,0,.4);background:#17130f;color:#8e8070;font:9px/26px Tahoma,SimSun,sans-serif;letter-spacing:1px;white-space:nowrap}
+.motion-echo-ribbon>div{display:inline-flex;min-width:max-content;align-items:center;animation:motionEcho 34s linear infinite}
+.motion-echo-ribbon span{display:inline-block;padding:0 34px 0 20px;position:relative}
+.motion-echo-ribbon span:after{content:"/";position:absolute;right:8px;color:#51483f}
+.motion-portal-echo{width:1160px;max-width:calc(100% - 28px);margin:0 auto;border-left:1px solid #806f55;border-right:1px solid #806f55;background:#6b2722;color:#e0caa2}
+.motion-bbs-echo{background:#09131c;color:#9aaab3;border-color:#314553}
+.motion-press-echo{background:#34221b;color:#bca68a;border-color:#675343}
+.motion-houqin-echo{background:#0b1a13;color:#819788;border-color:#395045;font-family:Consolas,SimSun,monospace}
+.motion-oa-echo{background:#030504;color:#786f65;border-color:#2d2925;font-family:Consolas,monospace;letter-spacing:1.5px}
+.motion-entry-echo{background:#282219;color:#9f917a;border-color:#5f5443}
+@keyframes motionEcho{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:720px){.motion-echo-ribbon{height:23px;font-size:8px;line-height:22px}.motion-portal-echo{width:100%;max-width:100%;border-left:0;border-right:0}.motion-echo-ribbon span{padding-left:14px;padding-right:28px}}
+@media(prefers-reduced-motion:reduce){.motion-echo-ribbon>div{animation:none}}

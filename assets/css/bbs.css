@@ -106,3 +106,23 @@ body.bbs-key-thread.bbs-anomaly-open .bbs-main{background:#f0f2f3!important;box-
 .bbs-key-thread .motion-bbs-stage:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,7,7,.02),rgba(10,7,7,.28));mix-blend-mode:multiply}
 @keyframes bbsArchiveDrift{from{transform:scale(1.015)}to{transform:scale(1.075) translate(-1.2%,-.7%)}}
 @media(prefers-reduced-motion:reduce){.bbs-key-thread .bbs-stage-frame{animation:none}}
+
+/* V21 — key recovered threads are read inside a dark archival room; ordinary
+   forum threads keep the pale 2000s board skin.  This is fixed per page. */
+body.bbs-key-thread .bbs-main{background:#111518;color:#c8c2b8}
+body.bbs-key-thread .bbs-crumb{background:#18232a;border-color:#465560;color:#b9c5cb}
+body.bbs-key-thread .thread{background:#131719;border-color:#46545d}
+body.bbs-key-thread .post{border-top-color:#39454c}
+body.bbs-key-thread .post-user{background:#172630!important;border-right-color:#3b4850;color:#8e9ba2}
+body.bbs-key-thread .post-user strong{color:#92b6cf}
+body.bbs-key-thread .post-body,body.bbs-key-thread .post:nth-child(even) .post-body{background:#171a1c;color:#cbc5bb}
+body.bbs-key-thread .post:nth-child(even) .post-body{background:#141719}
+body.bbs-key-thread .post-meta{color:#797e7f;border-bottom-color:#3e4345}
+body.bbs-key-thread .signature{color:#747e80;border-top-color:#3f4a4e}
+body.bbs-key-thread .quote{background:#1d2325;border-color:#3c464a;color:#a8aaa5}
+body.bbs-key-thread .pagination a,body.bbs-key-thread .pagination span{background:#17242c;border-color:#455964;color:#a9bbc5}
+body.bbs-key-thread .cache-gap-marker{background:#211d1b;border-color:#5f5149;color:#9f9387}
+body.bbs-key-thread .cache-gap-marker b{color:#b97874}
+body.bbs-key-thread .thread-source-note{border-color:#473d38;background:#0e1112;color:#988d82}
+body.bbs-key-thread .thread-source-note a{color:#c59a72}
+body.bbs-key-thread .missing-floor .post-user,body.bbs-key-thread .missing-floor .post-body{background:#191919!important;color:#6f6f6f}

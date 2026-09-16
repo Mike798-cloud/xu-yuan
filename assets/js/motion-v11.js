@@ -25,13 +25,13 @@
       ['bbs-thread-class-seat','二教值班室坚持每天清抽屉，可同一本蓝皮高数已经被“今天捡到”过两次。'],
       ['bbs-thread-dormwater','317的热水修好了，洗衣机2号下面那滩水却被不同楼层的人连续提了三天。'],
       ['bbs-thread-food','二食堂后场灯本来就整夜亮着，半夜看到亮灯不代表窗口还营业。'],
-      ['bbs-thread-library','图书馆帖子没有树，也没有许愿；它只是提醒你，不是每个古怪细节都属于同一件事。'],
+      ['bbs-thread-library','图书馆值班台只说了一件事：资料室底片借阅比普通图书严格，闭馆前还要单独签还。'],
       ['bbs-thread-lost','透明伞已经有人凭小票领走，可一周前同一位置也有人说捡到过一把一样的。'],
       ['bbs-thread-night-run','北侧围带里面不是跑道，体育部反复说这句话，却从不解释为什么围带每年都要重新拉。'],
       ['bbs-thread-print','南门文印店的营业时间没什么问题，真正留下来的只是旧稿页脚和打印日期。'],
       ['bbs-thread-qiming-keys','蓝色塑料牌不是宿舍号，而是器材编号“3I7”；郑启明在这个帖子里第一次留下完整领取记录。'],
       ['bbs-thread-qiming-recruit','社联旧表一直由 qiming_7 收，采访档案能确认这个账号就是郑启明本人。'],
-      ['bbs-thread-secondhand','显示器的暗点和电源板都能解释清楚，论坛里普通帖子越多，那些解释不清的旧帖反而越扎眼。'],
+      ['bbs-thread-secondhand','这台显示器的暗点和电源板都有维修记录，楼主把毛病写得比价格还详细。'],
       ['bbs-thread-hanger2012','旧帖缓存：3#之后直接保留6#，4#—5#只有引用位置，没有恢复正文。'],
       ['bbs-thread-hanger2016','该主题的旧截图与当前快照并不完全一致，缺失楼层仍按原编号保留。'],
       ['bbs-thread-east2014','三个人从老体出来，树牌是E-017；第二天工单逐项登记了四处新鲜断口。'],
@@ -46,7 +46,7 @@
       ['press-profile-club','采访签字能确认郑启明就是 qiming_7，所以2014年的几个旧帖不是同名账号。'],
       ['press-radio-schedule','节目单只记录12:01中断，没有记录学生后来提到的那句话。'],
       ['press-scholarship','编辑部留存的打印稿页脚早于最终公示日期四天，原件没有重新制版。'],
-      ['press-sports-special','“0.00秒”是普通设备故障，编辑部专门更正过；不是所有怪记录都和那棵树有关。'],
+      ['press-sports-special','“0.00秒”后来按终点摄像和人工表更正，编辑部把故障照片原样留在勘误档案里。'],
       ['press-corrections','校报的规矩是不覆盖原稿，错日期、错场次和错编号都另写更正，因此前后版本还能对照。'],
       ['press-library','2014年5月那卷底片借阅记录写着“旧体育馆东侧 / 22:07 / 3人”，公开网页没有原图。'],
       ['press-graduation','摄影部后来改用签到表核人数，因为“靠照片数人”曾经惹出过一次争议。'],
@@ -55,7 +55,7 @@
       ['hq-trees','资产表把YL-E-017归在旧体育馆东侧绿带，并不归东操场。'],
       ['hq-pruning','2014年的“4处”来自现场逐项登记，不是后期汇总数字。'],
       ['hq-map-page','公开工单按原位置字段筛选，同一片绿带在学生口中却常被叫成“东操场那边”。'],
-      ['hq-repairs','很多看上去很怪的维修记录最后都有普通原因，只有缺少交叉记录的条目无法直接排除。'],
+      ['hq-repairs','吊杆和广播站故障都有完整附件；HQ-2014-0524只有C项没迁入，人员明细因此断了一页。'],
       ['hq-migrate','旧节点不能全文搜“柳树”或“许愿”，只能用日期和行政区域把原始记录重新找出来。'],
       ['hq-workorder-stage','老体吊杆故障的A/B/C/D附件齐全，空场下移最后按限位开关故障结案。'],
       ['hq-workorder-power','广播站12:01:14跳闸有设备自动记录，工单本身并不知道节目里播了什么。'],
@@ -118,7 +118,8 @@
   const anchor=document.querySelector(body.classList.contains('oa-server-path')?'.term-top':config.after);
   if(!anchor)return;
 
-  const lines=[pageLine(),...config.lines].filter(Boolean);
+  const primaryLine=pageLine();
+  const lines=[primaryLine,config.lines[0],config.lines[1]].filter(Boolean);
   const ticker=document.createElement('div');
   ticker.className='legacy-ticker motion-'+config.kind+'-ticker';
   ticker.setAttribute('aria-label','页面固定轮播信息');
@@ -136,13 +137,10 @@
   }
 
   const bbsImages={
-    'bbs-thread-hanger2012':'scene_bbs_hanger2012.jpg',
-    'bbs-thread-hanger2016':'scene_bbs_hanger2016.jpg',
     'bbs-thread-east2014':'scene_bbs_east2014.jpg',
     'bbs-thread-radio2016':'scene_bbs_radio2016.jpg',
     'bbs-thread-eastfield2016':'scene_bbs_eastfield2016.jpg',
     'bbs-thread-east2017':'scene_bbs_east2017.jpg',
-    'bbs-thread-scholarship2014':'scene_bbs_scholarship2014.jpg',
     'bbs-thread-club2013':'scene_bbs_club2013.jpg',
     'bbs-thread-dorm2016':'scene_bbs_dorm2016.jpg'
   };
@@ -202,6 +200,23 @@
 
   const builders={portal:buildPortal,bbs:buildBbs,press:buildPress,houqin:buildHouqin,oa:buildOa,entry:buildEntry};
   builders[config.kind]?.();
+
+  // Fixed, page-local text crawl: it never depends on player progress.  It gives
+  // every page a moving layer built from that page's own record rather than a
+  // generic horror slogan.
+  const echo=document.createElement('div');
+  echo.className='motion-echo-ribbon motion-'+config.kind+'-echo';
+  echo.setAttribute('aria-hidden','true');
+  const track=document.createElement('div');
+  const title=(document.title||'').replace(/\s+-\s+明岚大学$/,'').replace(/\s+-\s+校报档案$/,'');
+  [title,primaryLine,config.lines[0]].filter(Boolean).forEach(text=>{
+    const span=document.createElement('span'); span.textContent=text; track.appendChild(span);
+  });
+  // duplicate the text track only for the visual loop; content remains fixed.
+  [...track.children].forEach(node=>track.appendChild(node.cloneNode(true)));
+  echo.appendChild(track);
+  const firstStage=ticker.nextElementSibling;
+  if(firstStage)firstStage.insertAdjacentElement('afterend',echo); else ticker.insertAdjacentElement('afterend',echo);
 
   let line=0;
   function renderLine(){

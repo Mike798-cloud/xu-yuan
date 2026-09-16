@@ -95,3 +95,17 @@ body.site-minglan:before,body.site-minglan:after{content:none!important;display:
 .minglan-index .ml-photo img{animation:mlArchiveDrift 16s ease-in-out infinite alternate;transform-origin:center 58%}@keyframes mlArchiveDrift{from{transform:scale(1.01)}to{transform:scale(1.055) translateY(-1.5%)}}
 @media(max-width:680px){.ml-curiosity-grid{grid-template-columns:1fr}.ml-curiosity-grid p{border-right:0;border-bottom:1px dotted #9c8e79}.ml-curiosity-grid p:last-child{border-bottom:0}.location-options{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.minglan-index .ml-photo img{animation:none}}
+
+/* V21 — the public portal remains readable, but every section contains one
+   concrete archival detail instead of decorative filler. */
+.ml-notice-excerpts,.ml-academic-ledger,.ml-security-log,.ml-photo-register,.ml-news-clipping{margin:18px 0 4px;border-top:2px solid #8b2b25;border-bottom:1px solid #baa989;background:#efe5cc;padding:11px 14px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45)}
+.ml-notice-excerpts h3,.ml-academic-ledger h3,.ml-security-log h3,.ml-photo-register h3,.ml-news-clipping h3{margin:0 0 8px;color:#71221e;font:16px/1.3 STKaiti,KaiTi,SimSun,serif;letter-spacing:1px}
+.ml-notice-excerpts article{padding:8px 0;border-top:1px dotted #9e9079}.ml-notice-excerpts article:first-of-type{border-top:0}.ml-notice-excerpts article b{color:#6b4932;font-weight:400}.ml-notice-excerpts article p{margin:4px 0 0;line-height:1.8}
+.ml-academic-ledger>div{display:grid;grid-template-columns:155px 1fr;gap:12px;padding:7px 0;border-top:1px dotted #9e9079}.ml-academic-ledger>div:first-of-type{border-top:0}.ml-academic-ledger span{font:11px/1.6 Consolas,monospace;color:#7f4b3b}.ml-academic-ledger p{margin:0;line-height:1.8}
+.ml-security-log p{margin:0;padding:7px 0;border-top:1px dotted #9e9079;line-height:1.8}.ml-security-log p:first-of-type{border-top:0}.ml-security-log b{color:#7f342d;font-weight:400}
+.ml-photo-register dl{display:grid;grid-template-columns:84px 1fr;margin:10px 0;border-top:1px solid #b8a88b}.ml-photo-register dt,.ml-photo-register dd{margin:0;padding:6px 7px;border-bottom:1px dotted #b2a58e}.ml-photo-register dt{color:#725845}.ml-photo-register dd{font-family:Consolas,SimSun,monospace}
+.ml-news-clipping p{line-height:1.9}.ml-mirror-note{margin-top:15px;padding:9px 11px;border-left:3px solid #7a2b27;background:#e8dbc0;color:#514434;line-height:1.8}.ml-mirror-note b{color:#762923;font-weight:400}
+.site-minglan .ml-photo img,.campus-photo-map img{transition:filter .5s ease;animation:mlPhotoBreath 16s ease-in-out infinite alternate}.site-minglan .ml-photo,.campus-photo-map{overflow:hidden}
+@keyframes mlPhotoBreath{from{transform:scale(1.01);filter:sepia(.08) contrast(1.03)}to{transform:scale(1.045);filter:sepia(.18) contrast(1.10) brightness(.92)}}
+@media(max-width:680px){.ml-academic-ledger>div{grid-template-columns:1fr;gap:2px}.ml-notice-excerpts,.ml-academic-ledger,.ml-security-log,.ml-photo-register,.ml-news-clipping{padding:9px}}
+@media(prefers-reduced-motion:reduce){.site-minglan .ml-photo img,.campus-photo-map img{animation:none}}
