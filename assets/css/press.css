@@ -23,3 +23,7 @@ body.site-press{background:
 
 /* V13 — broader archive sheet on desktop. */
 @media(min-width:900px){.press{width:1120px}}
+
+/* V14 — fill short clippings with ordinary same-page notices, not dead paper. */
+.press-afterfold{clear:both;margin-top:24px;padding-top:8px;border-top:3px double #6d6559}.press-afterfold h3{margin:0 0 7px;font:700 13px/1.4 SimSun,serif;letter-spacing:2px}.press-briefs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid #9b917f}.press-briefs p{margin:0!important;padding:8px 10px;border-right:1px solid #aaa08e;line-height:1.65!important;min-height:72px}.press-briefs p:last-child{border-right:0}.press-briefs b{display:block;margin-bottom:3px;color:#6f302a}.press-briefs span{color:#514b42}.site-press .press{min-height:min(820px,calc(100vh - 32px))}.site-press .press-body{align-content:start}
+@media(max-width:680px){.press-briefs{grid-template-columns:1fr}.press-briefs p{border-right:0;border-bottom:1px solid #aaa08e;min-height:0}.press-briefs p:last-child{border-bottom:0}.site-press .press{min-height:100vh}}

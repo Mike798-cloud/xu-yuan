@@ -32,6 +32,7 @@ body.site-bbs{padding-top:7px;background:
 .site-bbs .legacy-slides{width:39%;opacity:.55}
 .site-bbs .ambient-post .post-user{background:#d8e0e5}
 .site-bbs .ambient-post .post-meta{color:#88735f}
+.site-bbs .member-profile{color:#596873;font-size:10px;line-height:1.45}
 @media(max-width:680px){.site-bbs .bbs{min-height:100vh}.site-bbs .bbs-head{height:76px}.site-bbs .legacy-slides{width:56%}}
 
 /* V11 — complete thread pages and photographic early-web avatars. */

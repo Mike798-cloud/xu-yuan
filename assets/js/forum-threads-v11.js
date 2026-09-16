@@ -29,6 +29,9 @@
   const thread=document.querySelector('.thread');
   if(!thread)return;
   thread.querySelectorAll('.ambient-post').forEach(post=>post.remove());
+  if(document.title==='[学习互助] 补考出了'){
+    [...thread.querySelectorAll('.post')].find(post=>post.querySelector('.post-user strong')?.textContent.trim()==='同寝不想说')?.remove();
+  }
 
   const replies={
     '【学习】六级耳机求推荐，别太贵':[
@@ -152,16 +155,16 @@
       ['qiming_7','已领，失主能说出四把钥匙的用途。']
     ],
     '[旧帖] 别转我以前那帖了':[
-      ['泡面不要汤','不是，你自己当年发的啊……现在首页还飘着截图。'],
-      ['hanger','截图上后半段不是我写的。别私信了。'],
-      ['耳机坏三次','我只记得你说“去树底下讲一句”，没什么四根。'],
-      ['匿名用户17','可我存的那张就是“折一根”。要不我发？'],
-      ['hanger','别发。'],
-      ['raindrop','我这份没那行，3楼后面直接跳到“请二食堂”。'],
-      ['旧站潜水员','怪了，我记得你当时回过一句“三个人够了”。'],
-      ['hanger','认错人了。'],
-      ['nightboat','那年我还在站里。帖子跟广播也不是一天，别拼了。'],
-      ['匿名用户17','4楼刚才还是2012，刷新怎么变2014了？']
+      ['泡面不要汤','不是，你自己发的啊。首页那张截图还飘着呢'],
+      ['hanger','那图后半截不是我写的。也别再私信。'],
+      ['耳机坏三次','我只记得你说去树底下讲一句，哪来的四根'],
+      ['匿名用户17','我存的就是“折一根”。要看吗'],
+      ['hanger','别。'],
+      ['raindrop','我这份3楼后面直接是“请二食堂”，中间没有。'],
+      ['旧站潜水员','我怎么记得有句“三个人就行”'],
+      ['hanger','你认错人了。'],
+      ['nightboat','广播那次不是同一天，别硬往一起拼。'],
+      ['匿名用户17','4楼年份刚才还是12，刷新变14了']
     ],
     '【失物】东操场捡到一把透明伞':[
       ['体育部小刘','透明伞已被领走，蓝柄那把还在纸箱。'],
@@ -198,17 +201,17 @@
       ['宿管阿姨别锁门','今晚晚归照登记。还有，别再去东边。']
     ],
     '[树洞] 老体后面那棵树，三个人去过':[
-      ['stagehand','你们仨昨晚真去了？保安早上来问剧社。'],
-      ['qiming_7','就站了一会。别把名字往这贴。'],
-      ['北辰剧社','我收门的时候看见后门出去两个，另一个是谁？'],
-      ['stage_prop','两个？我六点多就走了。'],
-      ['raindrop','我照片里是三个影子。人看不清，时间22:07。'],
-      ['lin11','这楼怎么都在数人，折了就认，别拿影子算。'],
-      ['stagehand','今早地上四段新的，箱子里还沾着叶子。'],
-      ['qiming_7','我们只拿了三段。'],
-      ['匿名用户03','三个人，四个断口。那剩下那个谁拿的？'],
+      ['stagehand','你们仨真去了？保安早上跑来问剧社'],
+      ['qiming_7','就站了一会。名字别往这贴。'],
+      ['北辰剧社','我锁后门时只看见两个出去。还有一个谁'],
+      ['stage_prop','两个？我六点多就走了啊'],
+      ['raindrop','相机里有三个影子。脸拍不到，时间22:07。'],
+      ['lin11','折了就认，别搁这数影子。'],
+      ['stagehand','今早地上四段新的。道具箱里还有叶子'],
+      ['qiming_7','我们拿走的是三段。'],
+      ['匿名用户03','那第四段谁拿的'],
       ['qiming_7','别问了。'],
-      ['北辰剧社','7楼不是说“本来就断着”吗，怎么没了？']
+      ['北辰剧社','7楼刚才不是说“本来就断着”吗，怎么没了']
     ],
     '[社团天地] 进决赛了，老体今晚还练':[
       ['台词忘一半','所以今晚排不排，我从西区过去很远啊'],
@@ -236,16 +239,16 @@
       ['runrun','我只听见两下。算了，这帖别顶了。']
     ],
     '[校园广播] 别放那段广播':[
-      ['磁带A面','我在二食堂听见半句，像“别来……” 后面全是刺啦声。'],
-      ['fm_89','热线试音串进去了两秒。别传什么完整版，没有。'],
-      ['午睡被吵醒','我怎么听着像“别让她来东边”。'],
-      ['广播站门口','你们食堂那只喇叭本来就糊。'],
-      ['调音台灰太多','12:01跳闸，回来后只放了歌。今天先这样。'],
-      ['nightboat','旧采访里没有这句。我剪过母带。'],
-      ['磁带A面','可开头那个呼吸声跟采访里一模一样。'],
-      ['fm_89','别在楼里放那段了。'],
-      ['午睡被吵醒','刚才谁把我那层删了？'],
-      ['匿名用户09','你没有发过。']
+      ['磁带A面','二食堂听见半句，像“别来”。后面全是刺啦声'],
+      ['fm_89','热线试音串了两秒。没什么完整版，别找了。'],
+      ['午睡被吵醒','我听的是“别让她来东边”'],
+      ['广播站门口','食堂那只喇叭本来就糊。'],
+      ['调音台灰太多','12:01跳闸，回来以后只放歌。今天就这样。'],
+      ['nightboat','旧采访里没这句。我剪过母带。'],
+      ['磁带A面','但前面那口气跟采访里一样'],
+      ['fm_89','别在楼里放那段。'],
+      ['午睡被吵醒','我上一层呢？'],
+      ['匿名用户09','你没发过。']
     ],
     '[学习互助] 补考出了':[
       ['高数不要挂','周三上午？我准考证写周四，谁拍下公告。'],
@@ -280,11 +283,11 @@
     '[学习互助] 奖学金名单补录了','[社团天地] 进决赛了，老体今晚还练'
   ]);
   const fallback=[
-    ['路过留名','蹲个后续。'],
-    ['旧站潜水员','我怎么记得这楼以前更长？'],
-    ['今天也迟到','楼主还在吗'],
-    ['匿名用户12','我听的不是这个版本……算了。'],
-    ['隔壁路过','先别沉，等当事人回。']
+    ['路过留名','蹲一下。'],
+    ['旧站潜水员','这楼以前是不是更长'],
+    ['今天也迟到','楼主人呢'],
+    ['匿名用户12','我记得不是这样。算了'],
+    ['隔壁路过','先别沉，等楼主。']
   ];
   const title=document.title;
   const target=targetThreePages.has(title)?13:10;
@@ -294,6 +297,26 @@
     const match=meta.textContent.match(/(\d+)#/);
     return match?Number(match[1]):0;
   }));
+  const parsedTimes=[...thread.querySelectorAll('.post-meta')].map(meta=>{
+    const match=meta.textContent.match(/(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})(?::(\d{2}))?/);
+    return match?Date.UTC(Number(match[1]),Number(match[2])-1,Number(match[3]),Number(match[4]),Number(match[5]),Number(match[6]||0)):NaN;
+  }).filter(Number.isFinite);
+  const replyBase=parsedTimes.length?Math.max(...parsedTimes):Date.UTC(2017,3,20,20,0);
+  const minuteSteps=[2,5,9,14,20,27,35,44,55,68,82,97,113];
+  const formatTime=value=>{
+    const date=new Date(value);
+    const pad=part=>String(part).padStart(2,'0');
+    return date.getUTCFullYear()+'-'+pad(date.getUTCMonth()+1)+'-'+pad(date.getUTCDate())+' '+pad(date.getUTCHours())+':'+pad(date.getUTCMinutes());
+  };
+  const memberProfiles={
+    'qiming_7':'2014级 · 社团联合会','hanger':'2012级 · 计算机学院','raindrop':'2013级 · 校报摄影部',
+    'stage_prop':'2012级 · 舞台组','stagehand':'2013级 · 舞台组','lin11':'2013级',
+    'nightboat':'2012级 · 广播站','fm_89':'广播站值班','体育部小刘':'2014级 · 体育部',
+    '北辰剧社':'社团认证账号','维修值班小陈':'后勤维修','校报排版人':'校报编辑部',
+    '旧体育馆门卫':'场馆值班','二教管理员':'教学楼值班','图书馆值班':'图书馆值班',
+    '匿名用户03':'游客','匿名用户09':'游客','匿名用户12':'游客','匿名用户17':'游客'
+  };
+  const profileFor=(name,index)=>memberProfiles[name]||(['2015级','2016级','旧站注册用户'][index%3]);
   let cursor=0;
   while(existing+rows.length<target){
     rows.push(fallback[cursor%fallback.length]);
@@ -303,8 +326,10 @@
     const section=document.createElement('section');
     section.className='post ambient-post';
     const restoredFloor=lastFloor+index+1;
-    section.innerHTML='<div class="post-user"><strong></strong><div class="avatar"></div><div>旧站注册用户</div></div><div class="post-body"><div class="post-meta">缓存恢复　'+restoredFloor+'#</div><p></p></div>';
+    section.innerHTML='<div class="post-user"><strong></strong><div class="avatar"></div><div class="member-profile"></div></div><div class="post-body"><div class="post-meta"></div><p></p></div>';
     section.querySelector('strong').textContent=row[0];
+    section.querySelector('.member-profile').textContent=profileFor(row[0],index);
+    section.querySelector('.post-meta').textContent=formatTime(replyBase+minuteSteps[index%minuteSteps.length]*60000)+'　'+restoredFloor+'#';
     section.querySelector('p').textContent=row[1];
     thread.appendChild(section);
   });
@@ -361,6 +386,15 @@
     status.className='thread-status';
     thread.insertAdjacentElement('beforebegin',status);
   }
+  const edgeMessages={
+    '[学习互助] 补考出了':'引用楼层 4# / 正文未恢复 / 快照仍在',
+    '[旧帖] 别转我以前那帖了':'同一楼层存在两个年份字段 / 自动校验未通过',
+    '[树洞] 老体后面那棵树，三个人去过':'附件人数 3 / 现场断口 4 / 原图未恢复',
+    '[校园广播] 别放那段广播':'音频附件 1 / 来源字段为空 / 12:01 中断',
+    '【体育】昨晚东操场怎么提前熄灯了':'值班摘要 21:46 / 设备记录 21:51 / 楼层仍有缺口',
+    '[树洞] 东边那棵树又围了？':'恢复正文 17 / 引用楼层 19 / 写入顺序不一致'
+  };
+  let edgeAnnounced=false;
   function requestedPage(){
     const match=location.hash.match(/^#page-(\d+)$/);
     return Math.min(pageCount,Math.max(1,match?Number(match[1]):1));
@@ -385,6 +419,10 @@
       pager.appendChild(link);
     }
     status.textContent='主题回复 '+posts.length+'　每页 '+pageSize+' 层　当前第 '+page+' 页 / 共 '+pageCount+' 页　（旧站缓存顺序）';
+    if(page===pageCount&&pageCount>1&&!edgeAnnounced&&edgeMessages[title]){
+      edgeAnnounced=true;
+      document.dispatchEvent(new CustomEvent('xu:thread-edge',{detail:{message:edgeMessages[title]}}));
+    }
     if(scroll)document.querySelector('.bbs-crumb')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
   }
   window.addEventListener('hashchange',()=>renderPage(true));

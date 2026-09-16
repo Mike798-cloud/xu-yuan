@@ -57,7 +57,11 @@
       badge.textContent=(badge.dataset.sourceSeen==='paper'?'BA-P27':badge.dataset.sourceSeen==='device'?'CAM-E04':'DISP-3')+(seen?' 已核':' 未核');
     });
     if(submit)submit.disabled=viewed.size<3;
-    if(feedback&&viewed.size<3)feedback.textContent='还有 '+(3-viewed.size)+' 份记录未打开。';
+    if(feedback&&!feedback.classList.contains('success')){
+      feedback.textContent=viewed.size<3
+        ?'还有 '+(3-viewed.size)+' 份记录未打开。'
+        :'三份记录已打开。请只依据时间戳与原始字段完成互证。';
+    }
   }
   const open=key=>{
     const button=tabs.find(tab=>tab.dataset.oaTab===key)||tabs[0];
@@ -83,7 +87,7 @@
   open(hash&&tabs.some(tab=>tab.dataset.oaTab===hash)?hash:tabs[0].dataset.oaTab);
 
   let verified=false;
-  try{verified=localStorage.getItem('xuYuanEvidenceGateV13')==='verified';}catch(_error){}
+  try{verified=localStorage.getItem('xuYuanEvidenceGateV14')==='verified';}catch(_error){}
   function showVerified(){
     if(reveal)reveal.hidden=false;
     if(feedback){feedback.classList.add('success');feedback.textContent='校验通过。三份记录的先后关系一致。';}
@@ -96,11 +100,11 @@
     const first=document.getElementById('evidenceFirst').value;
     const cause=document.getElementById('evidenceCause').value;
     const after=document.getElementById('evidenceAfter').value;
-    if(first!=='injury')feedback.textContent='未通过：三份记录中，最早发生的事件选错了。';
-    else if(cause!=='injury')feedback.textContent='未通过：请重新核对调度记录里的取消原因。';
-    else if(after!=='student')feedback.textContent='未通过：请重新比较设备记录与纸质记录。';
+    if(first!=='injury-student-cancel')feedback.textContent='未通过：请按 21:46、21:51、21:58 重新排列三条记录。';
+    else if(cause!=='wish-caused-injury')feedback.textContent='未通过：请选择记录中没有证据支持的说法。';
+    else if(after!=='gap-before-cancel')feedback.textContent='未通过：请比较学生进入时，人员受伤与取消指令是否已经发生。';
     else{
-      try{localStorage.setItem('xuYuanEvidenceGateV13','verified');}catch(_error){}
+      try{localStorage.setItem('xuYuanEvidenceGateV14','verified');}catch(_error){}
       showVerified();
     }
   });
