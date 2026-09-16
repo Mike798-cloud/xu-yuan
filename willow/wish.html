@@ -3,54 +3,77 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>willow / wish</title>
-  <link rel="stylesheet" href="../assets/css/willow.css?v=16">
-  <script defer src="../assets/js/willow.js?v=16"></script>
+  <title>许愿柳 / 写下愿望</title>
+  <link rel="stylesheet" href="../assets/css/willow.css?v=18">
+  <script defer src="../assets/js/willow.js?v=18"></script>
 </head>
 <body class="site-willow willow-wish">
-  <main class="willow-wrap" id="willowPage">
-    <div class="willow-glyph" aria-hidden="true">愿</div>
-    <div class="willow-scratch" aria-hidden="true">别折　　别回头</div>
-    <div class="willow-meta">/willow/wish.html<br>owner: null<br>last modified: unknown<br>referrer: <span id="referrerState">archive-web-02</span></div>
-    <div class="static-noise">static copy / no service owner / form action unresolved</div>
-    <h1 class="willow-title">&gt; 你有什么愿望？</h1>
-    <div class="counter">received <span id="wishCount">18341</span></div>
-    <div class="tree-frame" aria-label="旧记录影像轮播">
-      <img class="tree-slide active" src="../assets/img/willow_main.jpg" alt="夜间垂柳照片">
-      <img class="tree-slide" src="../assets/img/branch_workorder.jpg" alt="后勤工单中的折枝照片">
-      <img class="tree-slide tree-slide-close" src="../assets/img/willow_main.jpg" alt="垂柳局部照片">
-      <div class="tree-carousel-label" id="treeCarouselLabel" aria-live="polite">FRAME 01 / EAST FIELD / SOURCE LOST</div>
-    </div>
-    <div class="wishbox">
-      <label class="sr-only" for="wishText">写下愿望</label>
-      <textarea id="wishText" maxlength="80" aria-label="愿望" placeholder=""></textarea>
-      <div class="line-row"><span class="prompt">wish &gt;</span><span class="limit" id="wishLen">0/80</span></div>
-      <button class="wishbtn" id="wishBtn" type="button">submit</button>
-      <div class="privacy">memory only / no upload target</div>
-    </div>
-    <div class="residue" id="residue" aria-live="polite"></div>
-  </main>
-  <div class="blackout" id="blackout" aria-live="polite">
-    <div class="ending" id="ending">
-      <section class="ending-story" id="endingStory">
-        <p>那些记录没有证明柳树真的实现过愿望。</p>
-        <p>它们只证明，有人在每次巧合之后受伤、缺席，又被写成无关紧要的一行。</p>
-        <p>你没有折下树枝，也没有替传言补上新的代价。</p>
-        <p>你只是从删掉的楼层里，重新看见了几个人：催人补表的、替人收钥匙的、总说二食堂二楼见的。</p>
-        <p>你写下了“<span class="ending-wish" id="endingWish"></span>”。这个没有主人的旧页面，不会替你实现它。</p>
-        <p>愿它不需要任何东西来交换。</p>
-        <button class="ending-skip" id="endingSkip" type="button">继续</button>
-      </section>
-      <section class="thanks" id="thanks" hidden>
-        <div class="thanks-kicker">ARCHIVE END / LOCAL RECEIPT 01</div>
-        <h2>感谢游玩《许愿柳》</h2>
-        <p>谢谢你翻完这些没人再维护的旧页面。</p>
-        <p>故事到这里就结束了。旧站不会再更新，你也不用替任何愿望付出什么。</p>
-        <figure class="creator-card"><img src="../assets/img/xiaohongshu-abc-studio.jpg" alt="abc studio 小红书二维码，小红书号 9415441338"><figcaption><b>abc studio</b><span>小红书号：9415441338</span></figcaption></figure>
-        <nav class="thanks-actions" aria-label="结束选项"><a href="../index.html">回到转发缓存</a><button id="replayEnding" type="button">重看收束</button></nav>
-        <div class="thanks-cycle" aria-hidden="true"><span>愿望已收到</span><span>记录已归档</span><span>谢谢你来过</span></div>
-      </section>
-    </div>
+  <div class="willow-backdrop" aria-hidden="true">
+    <figure class="backdrop-photo backdrop-a"><img src="../assets/img/scene_willow_side_a.jpg" alt=""></figure>
+    <figure class="backdrop-photo backdrop-b"><img src="../assets/img/scene_willow_side_b.jpg" alt=""></figure>
   </div>
+
+  <main class="willow-wrap" id="willowPage">
+    <header class="willow-head">
+      <div class="willow-path">/willow/wish.html　·　owner: null　·　static copy</div>
+      <div class="willow-caption">东操场旧资料最后一个仍能打开的页面</div>
+    </header>
+
+    <section class="willow-hero" aria-label="旧资料影像">
+      <div class="tree-frame">
+        <img class="tree-slide active" src="../assets/img/scene_willow_slide_1.jpg" alt="夜间垂柳照片">
+        <img class="tree-slide" src="../assets/img/scene_willow_slide_2.jpg" alt="东区绿化工单照片">
+        <img class="tree-slide tree-slide-campus" src="../assets/img/scene_willow_slide_3.jpg" alt="明岚大学校园资料图">
+        <div class="tree-carousel-label" id="treeCarouselLabel">夜间东操场 / 来源未标注</div>
+      </div>
+      <div class="willow-hero-copy">
+        <span>archive note</span>
+        <h1>你有什么愿望？</h1>
+        <p>前面的记录到这里就没有下一页了。这个旧表单还能输入文字，但已经查不到它原来属于哪个系统。</p>
+      </div>
+    </section>
+
+    <section class="wish-panel">
+      <div class="wish-count">旧页面显示已收到 <strong id="wishCount">18341</strong> 条</div>
+      <label for="wishText">写下一个愿望</label>
+      <textarea id="wishText" maxlength="80" aria-describedby="wishPrivacy" placeholder=""></textarea>
+      <div class="wish-row">
+        <span id="wishLen">0 / 80</span>
+        <span id="wishPrivacy">只保留在当前页面，不会上传。</span>
+      </div>
+      <button id="wishBtn" type="button">许愿</button>
+      <div class="residue" id="residue" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <section class="ending-overlay" id="endingOverlay" hidden aria-live="polite">
+    <div class="ending-photo" aria-hidden="true"></div>
+    <div class="ending-shell">
+      <div class="ending-kicker">STORY END / THANK YOU</div>
+      <h2>谢谢你把愿望写在这里</h2>
+      <div class="ending-copy">
+        <p>《许愿柳》里的学校、旧帖子、档案和那棵柳树都是虚构的，故事到这里也就结束了。</p>
+        <p>现实里大概没有一棵树能替人完成愿望，不过既然你已经认真把它写下来了，我还是想认真祝你一次：希望你最近过得开心一点，事情顺利一点，想做的事慢慢有结果，想见的人能够见到。</p>
+        <p>也希望刚才写下的那个愿望，有一天真的能实现。就当这次许愿算数吧，祝你天天开心，事事顺利，心想事成。</p>
+      </div>
+
+      <div class="creator-thanks" id="creatorThanks">
+        <div class="creator-copy">
+          <h3>感谢游玩《许愿柳》</h3>
+          <p>能看到这里，说明你真的把这趟调查走完了，谢谢。这里是 abc studio，我平时会做一些网页解谜和小故事，之后的新作品和制作记录也会继续放在小红书。</p>
+          <p>如果这次有哪个页面让你停下来多看了几眼，或者真的有一点发毛，我就很满足了。下面是我的小红书二维码，有兴趣的话可以来看看；不关注也没关系，玩得开心最重要。</p>
+          <p class="last-wish">最后，再祝你刚才那个愿望成真。</p>
+        </div>
+        <figure class="creator-card">
+          <img src="../assets/img/xiaohongshu-abc-studio.jpg" alt="abc studio 小红书二维码，小红书号 9415441338">
+          <figcaption>abc studio · 小红书号 9415441338</figcaption>
+        </figure>
+      </div>
+
+      <nav class="ending-actions" aria-label="结束选项">
+        <a href="../index.html">回到故事开头</a>
+      </nav>
+    </div>
+  </section>
 </body>
 </html>

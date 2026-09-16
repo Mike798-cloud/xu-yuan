@@ -4,85 +4,65 @@
   const counter=document.getElementById('wishLen');
   const btn=document.getElementById('wishBtn');
   const num=document.getElementById('wishCount');
-  const blackout=document.getElementById('blackout');
-  const ending=document.getElementById('ending');
-  const story=document.getElementById('endingStory');
-  const thanks=document.getElementById('thanks');
-  const skip=document.getElementById('endingSkip');
-  const replay=document.getElementById('replayEnding');
-  const page=document.getElementById('willowPage');
   const residue=document.getElementById('residue');
-  const endingWish=document.getElementById('endingWish');
-  const referrerState=document.getElementById('referrerState');
+  const overlay=document.getElementById('endingOverlay');
   const label=document.getElementById('treeCarouselLabel');
   const slides=[...document.querySelectorAll('.tree-slide')];
   const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const captions=['FRAME 01 / EAST FIELD / SOURCE LOST','FRAME 02 / ATTACHMENT / PARTIAL','FRAME 03 / OWNER / NULL'];
+  const captions=['夜间东操场 / 来源未标注','后勤工单附件 / 东区绿化复查','校园资料图 / 明岚大学'];
   let current=0;
-  let carousel=null;
-  let thanksTimer=null;
+  let timer=null;
   let submitted=false;
-  let archiveVerified=false;
-  try{archiveVerified=localStorage.getItem('xuYuanEvidenceGateV16')==='verified';}catch(_error){}
-  if(referrerState)referrerState.textContent=archiveVerified?'archive-web-02 / index 1843':'direct / unresolved';
 
   function showSlide(index){
     slides.forEach((slide,i)=>slide.classList.toggle('active',i===index));
-    if(label)label.textContent=captions[index];
+    if(label)label.textContent=captions[index]||'';
   }
   function startCarousel(){
-    if(slides.length<2||reduced||carousel||document.hidden)return;
-    carousel=window.setInterval(()=>{current=(current+1)%slides.length;showSlide(current);},6200);
+    if(reduced||slides.length<2||timer||document.hidden)return;
+    timer=window.setInterval(()=>{
+      current=(current+1)%slides.length;
+      showSlide(current);
+    },6200);
   }
-  function stopCarousel(){if(carousel)window.clearInterval(carousel);carousel=null;}
+  function stopCarousel(){
+    if(timer)window.clearInterval(timer);
+    timer=null;
+  }
   document.addEventListener('visibilitychange',()=>{document.hidden?stopCarousel():startCarousel();});
   startCarousel();
 
-  function showThanks(){
-    if(thanksTimer)window.clearTimeout(thanksTimer);
-    story.classList.add('is-past');
-    thanks.hidden=false;
-    requestAnimationFrame(()=>thanks.classList.add('show'));
-  }
-  function replayStory(){
-    thanks.classList.remove('show');
-    thanks.hidden=true;
-    story.classList.remove('is-past');
-    story.classList.remove('replay');
-    void story.offsetWidth;
-    story.classList.add('replay');
-    thanksTimer=window.setTimeout(showThanks,reduced?1200:11000);
-  }
-  function submitWish(){
+  function finish(){
     if(submitted)return;
-    if(!ta.value.trim()){
-      residue.textContent='empty input / waiting';
-      ta.focus();
+    const wish=(ta?.value||'').trim();
+    if(!wish){
+      if(residue)residue.textContent='先写下一句话。';
+      ta?.focus();
       return;
     }
     submitted=true;
-    if(endingWish)endingWish.textContent=ta.value.trim();
     stopCarousel();
-    num.textContent='18342';
-    btn.disabled=true;
-    ta.disabled=true;
-    residue.textContent='writing to volatile memory…';
-    page.classList.add('decay-1');
-    window.setTimeout(()=>{page.classList.add('decay-2');residue.textContent='received / form target: null';},reduced?80:450);
-    window.setTimeout(()=>{page.classList.add('decay-3');residue.textContent='received';},reduced?160:950);
+    if(num)num.textContent='18342';
+    if(btn)btn.disabled=true;
+    if(ta)ta.disabled=true;
+    if(residue)residue.textContent='已经写下来了。';
+    document.body.classList.add('wish-submitted');
+
     window.setTimeout(()=>{
-      blackout.classList.add('show');
-      ending.classList.add('show');
-      thanksTimer=window.setTimeout(showThanks,reduced?1200:11000);
-    },reduced?260:1550);
+      if(!overlay)return;
+      overlay.hidden=false;
+      requestAnimationFrame(()=>overlay.classList.add('show'));
+      window.setTimeout(()=>overlay.classList.add('show-credits'),reduced?0:3900);
+    },reduced?0:700);
   }
 
   ta?.addEventListener('input',()=>{
     if(ta.value.length>80)ta.value=ta.value.slice(0,80);
-    counter.textContent=ta.value.length+'/80';
+    if(counter)counter.textContent=ta.value.length+' / 80';
+    if(residue&&ta.value.trim())residue.textContent='';
   });
-  ta?.addEventListener('keydown',event=>{if((event.ctrlKey||event.metaKey)&&event.key==='Enter')submitWish();});
-  btn?.addEventListener('click',submitWish);
-  skip?.addEventListener('click',showThanks);
-  replay?.addEventListener('click',replayStory);
+  ta?.addEventListener('keydown',event=>{
+    if((event.ctrlKey||event.metaKey)&&event.key==='Enter')finish();
+  });
+  btn?.addEventListener('click',finish);
 })();

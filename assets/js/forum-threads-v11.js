@@ -28,9 +28,23 @@
 
   const thread=document.querySelector('.thread');
   if(!thread)return;
-  thread.querySelectorAll('.ambient-post').forEach(post=>post.remove());
-  if(document.title==='[学习互助] 补考出了'){
+  const threadTitle=document.title;
+  const keyThreadTitles=new Set([
+    '[学习互助] 补考出了','[旧帖] 别转我以前那帖了','[树洞] 老体后面那棵树，三个人去过',
+    '[校园广播] 别放那段广播','【体育】昨晚东操场怎么提前熄灯了','[树洞] 东边那棵树又围了？',
+    '[学习互助] 奖学金名单补录了','[社团天地] 进决赛了，老体今晚还练','[宿舍生活] 今晚别查寝，求一次'
+  ]);
+  if(keyThreadTitles.has(threadTitle))document.body.classList.add('bbs-key-thread');
+  thread.querySelectorAll('.ambient-post,.cache-gap-marker,.recovered-wish-post').forEach(post=>post.remove());
+  if(threadTitle==='[学习互助] 补考出了'){
     [...thread.querySelectorAll('.post')].find(post=>post.querySelector('.post-user strong')?.textContent.trim()==='同寝不想说')?.remove();
+    const floor3=[...thread.querySelectorAll('.post')].find(post=>/3#/.test(post.querySelector('.post-meta')?.textContent||''));
+    if(floor3){
+      const gap=document.createElement('div');
+      gap.className='cache-gap-marker';
+      gap.innerHTML='<b>snapshot gap</b><span>4#—5# / 2 records not restored / original floor numbers retained</span>';
+      floor3.insertAdjacentElement('afterend',gap);
+    }
   }
 
   const replies={
@@ -164,7 +178,7 @@
       ['旧站潜水员','我怎么记得有句“三个人就行”'],
       ['hanger','你认错人了。'],
       ['nightboat','广播那次不是同一天，别硬往一起拼。'],
-      ['匿名用户17','4楼年份刚才还是12，刷新变14了']
+      ['匿名用户17','我存的旧截图标的是12年，这份镜像却写14年。']
     ],
     '【失物】东操场捡到一把透明伞':[
       ['体育部小刘','透明伞已被领走，蓝柄那把还在纸箱。'],
@@ -211,7 +225,7 @@
       ['qiming_7','我们拿走的是三段。'],
       ['匿名用户03','那第四段谁拿的'],
       ['qiming_7','别问了。'],
-      ['北辰剧社','7楼刚才不是说“本来就断着”吗，怎么没了']
+      ['北辰剧社','我存的截图里7楼写着“本来就断着”，这份快照里没有那层。']
     ],
     '[社团天地] 进决赛了，老体今晚还练':[
       ['台词忘一半','所以今晚排不排，我从西区过去很远啊'],
@@ -231,7 +245,7 @@
       ['runrun','我手机那会儿21:50多，没仔细看。'],
       ['体育部小刘','昨晚值班临时少了人，北侧就没再开。'],
       ['泡面不要汤','“昨晚”是17号吧？你这帖都过零点了。'],
-      ['runrun','对，17号。刚发现日期跳了。'],
+      ['runrun','对，17号晚上。这帖过零点才发，所以页面日期是18号。'],
       ['校队替补','保安大叔是不是摔了？我看见救护车从北门走。'],
       ['lin11','我九点五十以后才到，围带里已经有人了。'],
       ['看台吹风','不对，我离开时跑道还亮着，树那边有人敲栏杆。'],
@@ -247,7 +261,7 @@
       ['nightboat','旧采访里没这句。我剪过母带。'],
       ['磁带A面','但前面那口气跟采访里一样'],
       ['fm_89','别在楼里放那段。'],
-      ['午睡被吵醒','我上一层呢？'],
+      ['午睡被吵醒','我那条回复在这份镜像里没了，引用里还留着。'],
       ['匿名用户09','你没发过。']
     ],
     '[学习互助] 补考出了':[
@@ -259,7 +273,7 @@
       ['hanger','？？我一个人。你认错了吧'],
       ['路过教务处','成绩刚又刷回“待复核”了，hanger你再看下。'],
       ['hanger','还是及格。'],
-      ['匿名用户17','4楼原来写的不是“别折”，我截过。'],
+      ['匿名用户17','我存的旧截图里有4楼，正文也不是“别折”这句。'],
       ['hanger','哪来的4楼，我这里直接到6楼。']
     ],
     '[树洞] 东边那棵树又围了？':[
@@ -289,7 +303,7 @@
     ['匿名用户12','我记得不是这句，算了'],
     ['隔壁路过','别沉，等lz']
   ];
-  const title=document.title;
+  const title=threadTitle;
   const isKeyThread=targetThreePages.has(title);
   const minimumPosts=isKeyThread?13:10;
   const rows=[...(replies[title]||[])];
@@ -404,14 +418,13 @@
     thread.insertAdjacentElement('beforebegin',status);
   }
   const edgeMessages={
-    '[学习互助] 补考出了':'引用楼层 4# / 正文未恢复 / 快照仍在',
+    '[学习互助] 补考出了':'4#—5# 未恢复 / 引用索引仍然存在',
     '[旧帖] 别转我以前那帖了':'引用索引仍指向一个已删除楼层',
-    '[树洞] 老体后面那棵树，三个人去过':'附件索引 1 / 原图未随快照保存',
+    '[树洞] 老体后面那棵树，三个人去过':'三人离开 / 四段折枝 / 原图未随快照保存',
     '[校园广播] 别放那段广播':'音频附件 1 / 来源字段为空 / 12:01 中断',
     '【体育】昨晚东操场怎么提前熄灯了':'值班摘要未并入论坛镜像 / 楼层仍有缺口',
-    '[树洞] 东边那棵树又围了？':'恢复正文 17 / 引用楼层 19 / 写入顺序不一致'
+    '[树洞] 东边那棵树又围了？':'恢复正文 17 / 引用楼层 19 / 多出一个无主索引'
   };
-  let edgeAnnounced=false;
   function requestedPage(){
     const match=location.hash.match(/^#page-(\d+)$/);
     return Math.min(pageCount,Math.max(1,match?Number(match[1]):1));
@@ -436,9 +449,15 @@
       pager.appendChild(link);
     }
     status.textContent='主题回复 '+posts.length+'　每页 '+pageSize+' 层　当前第 '+page+' 页 / 共 '+pageCount+' 页　（旧站缓存顺序）';
-    if(page===pageCount&&pageCount>1&&!edgeAnnounced&&edgeMessages[title]){
-      edgeAnnounced=true;
-      document.dispatchEvent(new CustomEvent('xu:thread-edge',{detail:{message:edgeMessages[title]}}));
+    if(page===pageCount&&pageCount>1&&edgeMessages[title]){
+      let edge=document.querySelector('.thread-edge-banner');
+      if(!edge){
+        edge=document.createElement('aside');
+        edge.className='thread-edge-banner';
+        edge.innerHTML='<span>SNAPSHOT TAIL</span><strong></strong><small>原始楼层号未重排；缺失正文不补写。</small>';
+        edge.querySelector('strong').textContent=edgeMessages[title];
+        pager.insertAdjacentElement('beforebegin',edge);
+      }
     }
     if(scroll)document.querySelector('.bbs-crumb')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
   }

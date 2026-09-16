@@ -14,6 +14,8 @@
     {date:'2016-11-17',area:'dorm3',id:'DORM3-HOT-2204',time:'2016-11-17 22:04',source:'热水',summary:'供水压力恢复'}
   ];
   const labels={oldgym:'旧体育馆',dorm3:'3号宿舍楼',radio:'广播站 / 东区配电',eastfield:'东操场',admin:'行政楼'};
+  let storedVerified=false;
+  try{storedVerified=localStorage.getItem('xuYuanEvidenceGateV16')==='verified';}catch(_error){}
   const form=document.getElementById('archiveQuery');
   if(form){
     const date=document.getElementById('qDate');
@@ -87,13 +89,14 @@
   const hash=location.hash.replace('#','');
   open(hash&&tabs.some(tab=>tab.dataset.oaTab===hash)?hash:tabs[0].dataset.oaTab);
 
-  let verified=false;
-  try{verified=localStorage.getItem('xuYuanEvidenceGateV16')==='verified';}catch(_error){}
+  const verified=storedVerified;
   function showVerified(){
-    if(reveal)reveal.hidden=false;
-    if(feedback){feedback.classList.add('success');feedback.textContent='校验通过。三份记录的先后关系一致。';}
+    if(reveal){
+      reveal.hidden=false;
+      requestAnimationFrame(()=>reveal.classList.add('is-revealed'));
+    }
+    if(feedback){feedback.classList.add('success');feedback.textContent='时间链校验通过。三份来源记录的原始时间没有被改写。';}
     if(submit){submit.disabled=false;submit.textContent='校验完成';}
-    document.dispatchEvent(new CustomEvent('xu:evidence-verified',{detail:{message:'INDEX 1842 → 1843 / UNOWNED PATH +1'}}));
   }
   if(verified)showVerified();
   if(gate)gate.addEventListener('submit',event=>{
@@ -103,7 +106,7 @@
     const cause=document.getElementById('evidenceCause').value;
     const clock=document.getElementById('evidenceClock').value;
     if(first!=='injury-student-cancel')feedback.textContent='未通过：请按 21:46、21:51、21:58 重新排列三条记录。';
-    else if(cause!=='wish-caused-injury')feedback.textContent='未通过：请选择记录中没有证据支持的说法。';
+    else if(cause!=='wish-after-injury')feedback.textContent='未通过：论坛缓存写明 21:52，晚于 21:46 的受伤记录。';
     else if(clock!=='no-gap-large')feedback.textContent='未通过：CAM-E04 当日漂移小于3秒，无法颠倒约7分钟的先后关系。';
     else{
       try{localStorage.setItem('xuYuanEvidenceGateV16','verified');}catch(_error){}
