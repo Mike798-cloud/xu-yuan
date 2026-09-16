@@ -30,3 +30,6 @@ body.entry-cache:before{content:"FORWARD_CACHE // 2017 // READ ONLY";position:fi
 .entry-cache .capture{min-height:calc(100vh - 24px);display:flex;flex-direction:column}
 .entry-cache .share{flex:1;display:flex;align-items:flex-start}
 @media(max-width:760px){.entry-cache .capture{min-height:100vh}}
+
+/* V16 — the side composition uses the actual night photograph, not drawn branch lines. */
+.entry-branch{right:-2vw;top:4vh;width:42vw;height:82vh;opacity:.19;background:url('../img/willow_main.jpg') center/cover no-repeat;filter:grayscale(1) contrast(1.45) brightness(.48);mask-image:linear-gradient(90deg,transparent 0,#000 32%,#000 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 32%,#000 100%)}

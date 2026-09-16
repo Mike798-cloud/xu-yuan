@@ -13,6 +13,7 @@
   const page=document.getElementById('willowPage');
   const residue=document.getElementById('residue');
   const endingWish=document.getElementById('endingWish');
+  const referrerState=document.getElementById('referrerState');
   const label=document.getElementById('treeCarouselLabel');
   const slides=[...document.querySelectorAll('.tree-slide')];
   const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -21,6 +22,9 @@
   let carousel=null;
   let thanksTimer=null;
   let submitted=false;
+  let archiveVerified=false;
+  try{archiveVerified=localStorage.getItem('xuYuanEvidenceGateV16')==='verified';}catch(_error){}
+  if(referrerState)referrerState.textContent=archiveVerified?'archive-web-02 / index 1843':'direct / unresolved';
 
   function showSlide(index){
     slides.forEach((slide,i)=>slide.classList.toggle('active',i===index));

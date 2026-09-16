@@ -22,3 +22,7 @@ body.site-willow{position:relative;background:#000;overflow-x:hidden}.willow-wra
 @media(max-width:650px){.blackout{padding:13px}.thanks{padding:25px 18px 20px}.thanks h2{font-size:23px}.creator-card{grid-template-columns:116px 1fr}.creator-card img{width:116px}.thanks-cycle{display:none}.thanks-actions{gap:14px;flex-wrap:wrap}}@media(prefers-reduced-motion:reduce){.ending-story,.thanks{transition:none}.ending-skip{animation:none;opacity:1}.thanks-cycle span{animation:none}.thanks-cycle span:not(:first-child){display:none}}
 .ending-story.replay p{animation-name:linein-replay}.thanks-cycle span{opacity:0;animation-fill-mode:both}.creator-card img{filter:none}@keyframes linein-replay{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 .ending-wish{color:#e2d0b8;text-shadow:1px 0 rgba(111,40,35,.65);border-bottom:1px dotted #59483b;padding:0 3px;overflow-wrap:anywhere}
+
+/* V16 — creator card is grounded by the same photographic evidence as the ending. */
+.thanks:after{content:"";position:absolute;right:-34px;top:-28px;width:285px;height:330px;background:url('../img/willow_main.jpg') center/cover no-repeat;filter:grayscale(1) contrast(1.35) brightness(.44);opacity:.16;transform:rotate(3deg);pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 42%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 42%)}
+.thanks-kicker,.thanks h2,.thanks p,.creator-card,.thanks-actions,.thanks-cycle{z-index:1}

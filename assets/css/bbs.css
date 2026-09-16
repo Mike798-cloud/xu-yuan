@@ -50,3 +50,6 @@ body.site-bbs{padding-top:7px;background:
 
 /* V13 — the forum occupies the display like a full old portal, not a narrow card. */
 @media(min-width:900px){.site-bbs .bbs{width:min(1280px,calc(100% - 36px))}}
+
+/* V16 — keep the ordering anomaly in the metadata; do not annotate it twice. */
+.bbs-thread-east2017 .cache-order .post-body:after{content:none}

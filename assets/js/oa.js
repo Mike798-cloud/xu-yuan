@@ -6,6 +6,7 @@
     {date:'2016-03-24',area:'dorm3',id:'DORM3-ELEV-1943',time:'2016-03-24 19:43',source:'设备',summary:'电梯门传感器故障'},
     {date:'2016-04-11',area:'radio',id:'PWR-RADIO-B-120114',time:'2016-04-11 12:01:14',source:'配电',summary:'BREAKER_TRIP'},
     {date:'2016-04-11',area:'radio',id:'RADIO-CTRL-120118',time:'2016-04-11 12:01:18',source:'播控',summary:'REQUEST_COMMIT / OUTPUT_LOST'},
+    {date:'2016-11-17',area:'eastfield',id:'FIELD-LAMP-1740',time:'2016-11-17 17:40:22',source:'照明巡检',summary:'SOUTH_TRACK_TEST / completed'},
     {date:'2016-11-17',area:'eastfield',id:'BA-2016-1117-P27',time:'2016-11-17 21:46',source:'保卫处纸质摘要',summary:'人员受伤 / 电话报告',href:'eastfield-2016.html#paper'},
     {date:'2016-11-17',area:'eastfield',id:'CAM-E04-2151',time:'2016-11-17 21:51:08',source:'设备维护摘要',summary:'ENTRY_FROM_BLDG2',href:'eastfield-2016.html#device'},
     {date:'2016-11-17',area:'eastfield',id:'DISP-EAST-2158',time:'2016-11-17 21:58:03',source:'巡查调度',summary:'ROUTE_EAST_CANCEL',href:'eastfield-2016.html#dispatch'},
@@ -87,7 +88,7 @@
   open(hash&&tabs.some(tab=>tab.dataset.oaTab===hash)?hash:tabs[0].dataset.oaTab);
 
   let verified=false;
-  try{verified=localStorage.getItem('xuYuanEvidenceGateV15')==='verified';}catch(_error){}
+  try{verified=localStorage.getItem('xuYuanEvidenceGateV16')==='verified';}catch(_error){}
   function showVerified(){
     if(reveal)reveal.hidden=false;
     if(feedback){feedback.classList.add('success');feedback.textContent='校验通过。三份记录的先后关系一致。';}
@@ -105,7 +106,7 @@
     else if(cause!=='wish-caused-injury')feedback.textContent='未通过：请选择记录中没有证据支持的说法。';
     else if(clock!=='no-gap-large')feedback.textContent='未通过：CAM-E04 当日漂移小于3秒，无法颠倒约7分钟的先后关系。';
     else{
-      try{localStorage.setItem('xuYuanEvidenceGateV15','verified');}catch(_error){}
+      try{localStorage.setItem('xuYuanEvidenceGateV16','verified');}catch(_error){}
       showVerified();
     }
   });

@@ -23,3 +23,6 @@ body.site-oa:before{content:"ARCHIVE\A 2012—2016\A READ ONLY";white-space:pre;
 
 /* V13 — broader archive desk, reduced outer void. */
 @media(min-width:900px){.site-oa .oa{width:min(1220px,calc(100% - 36px));max-width:none;margin:0 auto}}
+
+/* V16 — source grouping is typographic system data, not decorative line art. */
+.record-glyph:after{content:none}

@@ -48,3 +48,8 @@ body.site-minglan:after{content:"柳";position:fixed;right:1vw;top:9vh;color:#18
 /* V13 — broader desktop sheet and a single breadcrumb label. */
 .crumb:before{content:""}
 @media(min-width:900px){.ml-top .inner,.ml-head .inner,.ml-nav .inner,.ml-body,.ml-marquee,.site-minglan .legacy-ticker{width:1160px}}
+
+/* V16 — replace the oversized clue glyph with a low-contrast photographic margin. */
+body.site-minglan:before{display:none}
+body.site-minglan:after{content:"";position:fixed;right:-5vw;top:8vh;width:36vw;height:84vh;background:url('../img/willow_main.jpg') center/cover no-repeat;filter:grayscale(1) contrast(1.35) brightness(.42);opacity:.13;transform:rotate(.7deg);z-index:0;pointer-events:none}
+@media(max-width:720px){body.site-minglan:after{display:none}}
