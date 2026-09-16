@@ -62,3 +62,7 @@ body.site-press{background:linear-gradient(180deg,#151311,#050505)!important}
 .site-press .motion-press-echo>div{animation-duration:54s}
 @media(max-width:680px){.press-archive-photo{min-height:190px}.press-archive-photo img{height:190px!important}}
 @media(prefers-reduced-motion:reduce){.press-archive-photo:before{animation:none}}
+
+
+/* V23 — off-record interview material is treated as a typesetter's margin, not a clue card. */
+.press-profile-club .press-audio-note{position:relative;margin-top:18px;padding:10px 12px 10px 15px;background:#d6cbb4;border-top:1px solid #8f816d;border-bottom:1px solid #a99a83;font-size:11px;line-height:1.9;box-shadow:inset 3px 0 #7b4d42}.press-profile-club .press-audio-note:before{content:"录音转写";position:absolute;right:8px;top:-9px;padding:1px 5px;background:#c9bda5;color:#7e6f5e;font:8px/1.4 SimSun,serif;letter-spacing:1px}

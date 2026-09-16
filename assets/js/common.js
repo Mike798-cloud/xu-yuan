@@ -101,9 +101,9 @@
               <figure class="xuyuan-paywall-qr"><img src="${this.qrCode}" alt="1元支持收款码"><figcaption>扫码支持 1 元</figcaption></figure>
               <div class="xuyuan-paywall-copy">
                 <p>你好，我是 abc。谢谢你愿意在这些旧帖子、工单和时间戳里慢慢查到这里。</p>
-                <p>《许愿柳》是我一点点做出来的网页解谜，很多地方改过不止一遍，只是希望你点开下一页时，真的还愿意再往下查一点。</p>
+                <p>《许愿柳》前前后后改了很多次。比起把网站做得多像真的，我更在意你看到一条记录时，会不会愿意顺着它再查一页。</p>
                 <p>如果这段调查让你觉得值得，愿意留下一块钱，我会很开心；不方便也没关系，关掉这里继续玩，后面的内容不会少。</p>
-                <p class="xuyuan-paywall-line">一块钱不会让柳树替你实现愿望，不过能让我更踏实地把下一部游戏做完。</p>
+                <p class="xuyuan-paywall-line">这一块钱不会让柳树替你实现什么，不过我会记得有人认真走完了这段调查。</p>
               </div>
             </div>
             <footer class="xuyuan-paywall-foot">

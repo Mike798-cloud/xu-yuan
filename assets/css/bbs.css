@@ -140,3 +140,8 @@ body.bbs-key-thread.motion-ready .post:nth-child(2){animation-delay:.06s}body.bb
 body.bbs-key-thread .motion-bbs-echo>div{animation-duration:48s}
 @media(max-width:720px){body.bbs-key-thread .motion-bbs-stage{height:128px}}
 @media(prefers-reduced-motion:reduce){body.bbs-key-thread .post{opacity:1;transform:none}body.bbs-key-thread.motion-ready .post{animation:none}}
+
+
+/* V23 — key-thread photography drifts almost imperceptibly; the archive text remains fixed. */
+.bbs-key-thread .motion-bbs-stage .bbs-stage-frame{animation:stagePhotoHold 28s ease-in-out infinite alternate;transform-origin:52% 46%}@keyframes stagePhotoHold{from{transform:scale(1.015)}to{transform:scale(1.055) translate(-.7%,-.45%)}}
+@media(prefers-reduced-motion:reduce){.bbs-key-thread .motion-bbs-stage .bbs-stage-frame{animation:none}}
