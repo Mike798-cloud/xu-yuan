@@ -56,11 +56,11 @@
    options.forEach(item=>item.classList.remove('is-picked','is-wrong'));
    option.classList.add('is-picked');
    if(option.dataset.pressMatch==='a'){
-    if(feedback)feedback.textContent='位置、时间和人数三项都能对上旧帖里的描述。';
+    if(feedback)feedback.textContent='登记卡字段一致：位置 / 时间 / 画面人数。';
     if(result)result.hidden=false;
    }else{
     option.classList.add('is-wrong');
-    if(feedback)feedback.textContent='至少有一项登记字段和旧帖里的描述对不上。';
+    if(feedback)feedback.textContent='该卷至少有一项登记字段不一致。';
     if(result)result.hidden=true;
    }
   }));

@@ -17,11 +17,11 @@
       buttons.forEach(item=>item.classList.remove('is-picked','is-wrong'));
       button.classList.add('is-picked');
       if(button.dataset.location==='gym-east'){
-        if(feedback)feedback.textContent='地点描述、方位和树牌编号能够同时对上这一项。';
+        if(feedback)feedback.textContent='索引字段一致：俗称、方位与资产编号可对应到同一条记录。';
         if(result)result.hidden=false;
       }else{
         button.classList.add('is-wrong');
-        if(feedback)feedback.textContent='这一项至少有一个字段和旧帖里的描述对不上。';
+        if(feedback)feedback.textContent='该条目的俗称、方位或资产编号至少有一项不一致。';
         if(result)result.hidden=true;
       }
     }));

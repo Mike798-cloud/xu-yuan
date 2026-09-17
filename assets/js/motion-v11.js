@@ -120,30 +120,6 @@
 
   const primaryLine=pageLine();
   const lines=[primaryLine,config.lines[0],config.lines[1]].filter(Boolean);
-  const ticker=document.createElement('div');
-  ticker.className='legacy-ticker motion-'+config.kind+'-ticker';
-  ticker.setAttribute('aria-label','页面固定轮播信息');
-  const tickerText=document.createElement('span');
-  tickerText.className='legacy-ticker-text';
-  ticker.appendChild(tickerText);
-  anchor.insertAdjacentElement('afterend',ticker);
-
-  function buildPortal(){
-    const rail=document.createElement('div');
-    rail.className='motion-portal-rail';
-    rail.innerHTML='<span>校园要闻</span><i></i><span>通知公告</span><i></i><span>东区绿化 / YL-E-017</span><b>2017 / 04</b>';
-    ticker.insertAdjacentElement('afterend',rail);
-    if(body.classList.contains('minglan-index')){
-      const photo=document.querySelector('.ml-photo');
-      if(photo&&!photo.querySelector('.ml-photo-meta')){
-        const meta=document.createElement('div');meta.className='ml-photo-meta';
-        meta.innerHTML='<b>PHOTO ARCHIVE / MLU-2017-SPR</b><span>东区资料图 · 原始拍摄人未登记</span>';
-        photo.appendChild(meta);
-      }
-    }
-    return rail;
-  }
-
   const bbsImages={
     'bbs-thread-east2014':'scene_bbs_east2014.jpg',
     'bbs-thread-radio2016':'scene_bbs_radio2016.jpg',
@@ -152,12 +128,42 @@
     'bbs-thread-club2013':'scene_bbs_club2013.jpg',
     'bbs-thread-dorm2016':'scene_bbs_dorm2016.jpg'
   };
+  const isBbsKey=[...body.classList].some(name=>Object.prototype.hasOwnProperty.call(bbsImages,name));
+  const tickerPages=['entry-cache','minglan-index','minglan-notice-east','press-tree-care','press-radio-schedule','press-scholarship','hq-index','hq-workorder-2014-0524'];
+  const showTicker=isBbsKey||tickerPages.some(name=>body.classList.contains(name));
+  let ticker=null,tickerText=null;
+  if(showTicker){
+    ticker=document.createElement('div');
+    ticker.className='legacy-ticker motion-'+config.kind+'-ticker';
+    ticker.setAttribute('aria-label','页面固定轮播信息');
+    tickerText=document.createElement('span');
+    tickerText.className='legacy-ticker-text';
+    ticker.appendChild(tickerText);
+    anchor.insertAdjacentElement('afterend',ticker);
+  }
+  const placeAfter=(node,base=ticker||anchor)=>{ base.insertAdjacentElement('afterend',node); return node; };
+
+  function buildPortal(){
+    if(!body.classList.contains('minglan-index'))return null;
+    const rail=document.createElement('div');
+    rail.className='motion-portal-rail';
+    rail.innerHTML='<span>校园要闻</span><i></i><span>通知公告</span><i></i><span>东区绿化 / YL-E-017</span><b>2017 / 04</b>';
+    placeAfter(rail);
+    const photo=document.querySelector('.ml-photo');
+    if(photo&&!photo.querySelector('.ml-photo-meta')){
+      const meta=document.createElement('div');meta.className='ml-photo-meta';
+      meta.innerHTML='<b>PHOTO ARCHIVE / MLU-2017-SPR</b><span>东区资料图 · 原始拍摄人未登记</span>';
+      photo.appendChild(meta);
+    }
+    return rail;
+  }
+
   function buildBbs(){
     const bar=document.createElement('section');
     bar.className='motion-bbs-console';
     bar.setAttribute('aria-label','论坛镜像状态');
     bar.innerHTML='<span><b>HOT</b> 今日主题 126</span><span><b>ONLINE</b> 访客模式</span><span><b>ARCHIVE</b> 已恢复 1842 主题</span><span><b>SYNC</b> 原楼层号保留</span>';
-    ticker.insertAdjacentElement('afterend',bar);
+    placeAfter(bar);
     const cls=[...body.classList].find(name=>bbsImages[name]);
     if(cls){
       body.classList.add('bbs-key-thread');
@@ -176,6 +182,7 @@
       copy.appendChild(small); stage.appendChild(copy);
       const idx=document.createElement('div'); idx.className='bbs-stage-index'; idx.textContent='SNAPSHOT / 2017-04-20'; stage.appendChild(idx);
       bar.insertAdjacentElement('afterend',stage);
+      return stage;
     }
     return bar;
   }
@@ -187,7 +194,7 @@
     evidence.className='motion-hq-evidence';
     evidence.setAttribute('aria-label','公开工单影像摘要');
     evidence.innerHTML='<figure><img alt="东区维护资料照片" src="'+root+'scene_hq_index.jpg"><figcaption>HQDATA_02 / PUBLIC INDEX</figcaption></figure><div><b>YL-E-017</b><span>前夜登记：3人</span><span>现场断口：4处</span><span>附件编号：原序保留</span></div>';
-    ticker.insertAdjacentElement('afterend',evidence); return evidence;
+    placeAfter(evidence); return evidence;
   }
   function buildOa(){
     if(!body.classList.contains('oa-eastfield-2016'))return null;
@@ -195,7 +202,7 @@
     evidence.className='motion-oa-evidence';
     evidence.setAttribute('aria-label','历史节点来源摘要');
     evidence.innerHTML='<figure><img alt="东操场夜间资料照片" src="'+root+'scene_oa_eastfield.jpg"></figure><div><b>LEGACY SOURCE SET</b><span>paper / device / dispatch</span><span>timestamps preserved separately</span><span>unowned index retained</span></div>';
-    ticker.insertAdjacentElement('afterend',evidence);
+    placeAfter(evidence,anchor);
     const timeline=document.createElement('section');
     timeline.className='motion-oa-timeline';timeline.setAttribute('aria-label','记录时间轴');
     timeline.innerHTML='<div><b>21:45:31</b><span>unowned index</span></div><div><b>21:46</b><span>injury record</span></div><div><b>21:51</b><span>entry</span></div><div><b>21:52</b><span>cache</span></div><div><b>21:58</b><span>cancel</span></div>';
@@ -208,17 +215,16 @@
     recovery.setAttribute('aria-label','转发缓存恢复摘要');
     recovery.innerHTML='<div class="recovery-photo"></div><div class="recovery-copy"><b>PUBLIC_FORWARD / TH-238771</b><span>正文 17 / 19</span><span>附件 0 / 1</span><span>原楼层号保留</span></div>';
     recovery.querySelector('.recovery-photo').style.backgroundImage='url("'+root+'scene_entry_cache.jpg")';
-    ticker.insertAdjacentElement('afterend',recovery); return recovery;
+    placeAfter(recovery); return recovery;
   }
 
   const builders={portal:buildPortal,bbs:buildBbs,press:buildPress,houqin:buildHouqin,oa:buildOa,entry:buildEntry};
-  builders[config.kind]?.();
+  const builtStage=builders[config.kind]?.();
 
-  // Fixed, page-local movement is deliberately selective.  The archive should
-  // not feel like one universal template: portal, recovered BBS threads and a
-  // handful of record pages move; OA becomes quieter as evidence gets harder.
-  const echoPages=['entry-cache','minglan-index','minglan-notice-east','bbs-key-thread','press-tree-care','press-radio-schedule','press-scholarship','hq-index','hq-workorder-2014-0524'];
-  const useEcho=echoPages.some(name=>body.classList.contains(name));
+  // Only a few pages move. Other documents stay still so each platform keeps
+  // its own rhythm instead of sharing one global horror animation template.
+  const echoPages=['entry-cache','bbs-key-thread','press-tree-care','press-radio-schedule','press-scholarship','hq-workorder-2014-0524'];
+  const useEcho=showTicker&&echoPages.some(name=>body.classList.contains(name));
   if(useEcho){
     const echo=document.createElement('div');
     echo.className='motion-echo-ribbon motion-'+config.kind+'-echo';
@@ -230,24 +236,25 @@
     });
     [...track.children].forEach(node=>track.appendChild(node.cloneNode(true)));
     echo.appendChild(track);
-    const firstStage=ticker.nextElementSibling;
-    if(firstStage)firstStage.insertAdjacentElement('afterend',echo); else ticker.insertAdjacentElement('afterend',echo);
+    (builtStage||ticker).insertAdjacentElement('afterend',echo);
   }
 
   let line=0;
   function renderLine(){
+    if(!ticker||!tickerText||!lines.length)return;
     tickerText.textContent=lines[line%lines.length];
     ticker.className='legacy-ticker tone-'+(line%4)+' motion-'+config.kind+'-ticker';
     tickerText.classList.remove('is-entering'); void tickerText.offsetWidth; tickerText.classList.add('is-entering');
     line=(line+1)%lines.length;
   }
-  renderLine();
-  if(!reduced){
-    let timer=null;
-    const shouldCycle=!body.classList.contains('site-oa');
-    const start=()=>{ if(!shouldCycle||timer||document.hidden)return; timer=window.setInterval(renderLine,11800); };
-    const stop=()=>{ if(timer)window.clearInterval(timer); timer=null; };
-    document.addEventListener('visibilitychange',()=>{document.hidden?stop():start();}); start();
+  if(showTicker){
+    renderLine();
+    if(!reduced){
+      let timer=null;
+      const start=()=>{ if(timer||document.hidden)return; timer=window.setInterval(renderLine,14800); };
+      const stop=()=>{ if(timer)window.clearInterval(timer); timer=null; };
+      document.addEventListener('visibilitychange',()=>{document.hidden?stop():start();}); start();
+    }
   }
   requestAnimationFrame(()=>body.classList.add('motion-ready'));
 })();

@@ -24,11 +24,11 @@
       choices.forEach(item=>item.classList.remove('is-picked','is-wrong'));
       choice.classList.add('is-picked');
       if(choice.dataset.attachment==='people'){
-        if(feedback)feedback.textContent='与同年度绿化工单的附件规则一致。';
+        if(feedback)feedback.textContent='归档类型一致：C / 当班人员记录。';
         if(result)result.hidden=false;
       }else{
         choice.classList.add('is-wrong');
-        if(feedback)feedback.textContent='这一项和绿化工单的A/B/C/D附件顺序对不上。';
+        if(feedback)feedback.textContent='该类型与2014年度绿化工单的附件顺序不一致。';
         if(result)result.hidden=true;
       }
     }));
